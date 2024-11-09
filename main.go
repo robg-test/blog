@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
 	"github.com/robgtest/templ-ate/internal"
+	"github.com/robgtest/templ-ate/web/pages"
 )
 
 func main() {
@@ -14,25 +15,27 @@ func main() {
 	setup()
 
 	router := mux.NewRouter()
-
-	fmt.Println("Listening on :8080")
+	setupStaticHandlers(router)
+	setupPageHandlers(router)
+	log.Println("Listening on :8080")
 	http.ListenAndServe(":8080", internal.UserSessionManager.LoadAndSave(router))
 }
 
 func setupPageHandlers(router *mux.Router) {
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		indexPage := pages.IndexPage()
+		templ.Handler(indexPage).ServeHTTP(w, r)
+	})
 }
 
 func setupComponentHandlers(router *mux.Router) {
 }
 
 func setupStaticHandlers(router *mux.Router) {
- router.HandleFunc("./styles.css", f func(http.ResponseWriter,
-   *http.Request) {
-
-    })
+	router.HandleFunc("/styles.css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./web/static/css/output.css")
+	})
 }
-
-
 
 func setup() {
 	err := internal.InitDB("main.db")
@@ -42,7 +45,7 @@ func setup() {
 
 	err = internal.SetupSessionManager()
 	if err != nil {
-		fmt.Println("Error setting up session manager:", err)
+		log.Println("Error setting up session manager:", err)
 		return
 	}
 }
