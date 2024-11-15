@@ -1,8 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
+	"path/filepath"
+	"strings"
 
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
@@ -11,11 +15,15 @@ import (
 )
 
 func main() {
+	loadableImages, err := getImagesList()
+	if err != nil {
+		panic(err)
+	}
 	log.SetFlags(log.LstdFlags)
 	setup()
 
 	router := mux.NewRouter()
-	setupStaticHandlers(router)
+	setupStaticHandlers(router, loadableImages)
 	setupPageHandlers(router)
 	log.Println("Listening on :8080")
 	http.ListenAndServe(":8080", internal.UserSessionManager.LoadAndSave(router))
@@ -31,10 +39,46 @@ func setupPageHandlers(router *mux.Router) {
 func setupComponentHandlers(router *mux.Router) {
 }
 
-func setupStaticHandlers(router *mux.Router) {
+func setupStaticHandlers(router *mux.Router, loadableImages []string) {
 	router.HandleFunc("/styles.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./web/static/css/output.css")
 	})
+
+	router.HandleFunc("/images/{path}", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		for key, value := range vars {
+			if key == "path" {
+				log.Printf("Loading image: %s", value)
+				for _, image := range loadableImages {
+					log.Printf("Lookup on Image: %s", image)
+					if strings.Compare(value, image) == 0 {
+						// process each image
+						log.Println("Presenting Image")
+						http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", image))
+					}
+				}
+			}
+		}
+	})
+}
+
+func getImagesList() ([]string, error) {
+	directory := "./web/static/images"
+	fileMap := []string{}
+
+	err := filepath.WalkDir(directory, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if !d.IsDir() {
+			fileMap = append(fileMap, d.Name())
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return fileMap, nil
 }
 
 func setup() {

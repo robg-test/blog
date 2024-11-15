@@ -11,3 +11,4 @@ tmp/build-errors.log
 vendor
 test-tool.exe
 testapp.exe
+node_modules
