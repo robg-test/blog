@@ -25,6 +25,7 @@ func main() {
 	router := mux.NewRouter()
 	setupStaticHandlers(router, loadableImages)
 	setupPageHandlers(router)
+	setupBlogHandler(router)
 	log.Println("Listening on :8080")
 	http.ListenAndServe(":8080", internal.UserSessionManager.LoadAndSave(router))
 }
@@ -92,4 +93,15 @@ func setup() {
 		log.Println("Error setting up session manager:", err)
 		return
 	}
+}
+
+func setupBlogHandler(router *mux.Router) {
+	router.HandleFunc("/blog/{id}", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		var blog templ.Component
+		if vars["id"] == "1" {
+			blog = pages.BlogWhenInDoubt()
+		}
+		templ.Handler(blog).ServeHTTP(w, r)
+	})
 }
