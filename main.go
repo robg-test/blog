@@ -10,8 +10,10 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
-	"github.com/robgtest/templ-ate/internal"
-	"github.com/robgtest/templ-ate/web/pages"
+	"github.com/robgtest/blog/internal"
+	"github.com/robgtest/blog/web/blogs"
+	"github.com/robgtest/blog/web/components"
+	"github.com/robgtest/blog/web/pages"
 )
 
 func main() {
@@ -35,9 +37,10 @@ func setupPageHandlers(router *mux.Router) {
 		indexPage := pages.IndexPage()
 		templ.Handler(indexPage).ServeHTTP(w, r)
 	})
-}
-
-func setupComponentHandlers(router *mux.Router) {
+	router.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
+		blogLibrary := components.BlogLibrary()
+		templ.Handler(blogLibrary).ServeHTTP(w, r)
+	})
 }
 
 func setupStaticHandlers(router *mux.Router, loadableImages []string) {
@@ -100,7 +103,7 @@ func setupBlogHandler(router *mux.Router) {
 		vars := mux.Vars(r)
 		var blog templ.Component
 		if vars["id"] == "1" {
-			blog = pages.BlogWhenInDoubt()
+			blog = blogs.BlogWhenInDoubt()
 		}
 		templ.Handler(blog).ServeHTTP(w, r)
 	})

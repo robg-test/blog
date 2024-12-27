@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/a-h/templ"
-	"github.com/robgtest/templ-ate/web/pages"
+	"github.com/robgtest/blog/web/pages"
 )
 
 func LaunchIndexPage(r *http.Request, w http.ResponseWriter) {

@@ -1,4 +1,4 @@
-module github.com/robgtest/templ-ate
+module github.com/robgtest/blog
 
 go 1.23.1
 

@@ -1,0 +1,20 @@
+package components
+
+templ Card(name string, description string, image string, id string) {
+	<div class="card bg-base-100 w-96 shadow-xl">
+		<figure>
+			<img
+				src={ image }
+				alt="Image"
+				className="w-full h-auto max-w-xs"
+			/>
+		</figure>
+		<div class="card-body">
+			<h2 class="card-title">{ name }</h2>
+			<p>{ description }</p>
+			<div class="card-actions justify-end">
+				<button hx-get={ "/blog/" + id } hx-target="#content" hx-trigger="click" hx-swap="innerHTML" class="btn btn-primary">Read</button>
+			</div>
+		</div>
+	</div>
+}
