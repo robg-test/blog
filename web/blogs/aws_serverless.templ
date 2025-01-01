@@ -1,0 +1,89 @@
+package blogs
+
+import (
+	"github.com/robgtest/blog/web/components"
+	"github.com/robgtest/blog/web/pages"
+)
+
+templ AWSServerlessBlog() {
+	@pages.BlogPage("A guide to serverless performance testing and tuning") {
+		<figure>
+			<h1>A Performance Testers Guide to AWS Lambdas</h1>
+			@components.BlogTimeCaption("10")
+		</figure>
+		<p>A common misconception about serverless computing is that it means not using a server at all. In reality, 'serverless' means that you don't manage the server; instead, the cloud provider handles it for you. This distinction is crucial, especially in performance testing, as the misconception could lead to significant misunderstandings and a whole heap of performance issues.</p>
+		<figure>
+			<img src="../../images/serverless.jpg" alt="Not quite serverless" style="width:50%;"/>
+			<figcaption>Serverless but not AWS Serverless</figcaption>
+		</figure>
+		<p>In my opinion AWS can sometimes be unclear about the details of the offering. I'm not sure for other providers such as Azure functions but I presume some of the problems may be shared, This article will cover common pitfalls, how to configure lambdas and how to test them.</p>
+		<h2>Lambdas</h2>
+		<p>
+			Lambdas are individual runtimes you borrow that you use for a period of time up to 15 minutes, if two requests come in at the same time, you get two of them, three at the same time? you get three. Up to a configurable limit. If requests happen subsequently you use the first one twice. 
+		</p>
+		<p>This is actually the best part of lambdas and where it gets the autoscaling from the more you call the more lambdas you get. </p>
+		Each Lambda function operates within its own isolated environment, having its own dedicated machine. While it utilizes containerization under the hood, you don't need to worry about the technical specifics—just think of each Lambda as its own independent machine with very limited configuration options
+		<p>Here's a diagram that explains it:</p>
+		<img src="../../images/LambdaBrief.png"/>
+		<p></p>As you can imagine, hit it too hard and it can lead to 
+		<a href="https://asankha.medium.com/lambda-programming-errors-that-could-cost-you-thousands-of-dollars-a-day-265dfac354f">fairly disastrous results</a>, watching your AWS bill is a real consideration when doing performance testing and a metric you should definitely consdier measuring.
+		<h2>Lambda Configuration</h2>
+		<p>Lambdas have several configuration options that can impact performance. Key settings include. These are the things you can edit in the AWS Console I'll focus on these because they are more universal</p>
+		<p><i>This isn't a definitive list, context is more important when dealing with poor performance. </i></p>
+		<ul>
+			<li><strong>Provisioned Concurrency:</strong> Keeps functions initialized and ready to respond to requests, reducing start-up latency.</li>
+			<li><strong>Concurrency Limit:</strong> Controls how many instances of a function can run simultaneously, which can affect latency during peak loads.</li>
+			<li><strong>Memory:</strong> Determines both the memory allocation and CPU power available to the function. More memory typically results in faster execution.</li>
+			<li><strong>Timeout:</strong> Sets the maximum duration a Lambda function can run. Adjust appropriately for the work being processed to avoid unnecessary time limits.</li>
+		</ul>
+		<p>This is a bit of a starter list, in reality context is very important, do you make use of a file system? Got all the i/o stuff to worry about thenin reality context is very important, do you make use of a file system? Got all the i/o stuff to worry about then.</p>
+		<h3>Memory</h3>
+		<p>Oh boy, my pet peeve with AWS lambdas is this - More memory is just more RAM right? Well no, since this is where the CPU setting is, and that's probably not the only thing.</p>
+		<p>Honestly if I could give AWS one piece of feedback, it's this. Tell me what CPU I'm getting. Maybe it's since it's VCPU? and trying to explain that would be too confusing? But honestly? no idea.</p>
+		<figure>
+			<img src="../../images/thismuchcpu.png"/>
+			<figcaption style="display: flex; align-items: center;">
+				A helpful indicator would be nice! 
+			</figcaption>
+		</figure>
+		<p>A handy cheatsheet can be found <a href="https://stackoverflow.com/questions/66522916/aws-lambda-memory-vs-cpu-configuration">here</a>, that has a table of X Memory = X CPU</p>
+		<h3>Increasing the Memory</h3>
+		<p>So you've decided you need a beefier lambda, the default is 128mb <strong>PUNY</strong> your hello world app clearly needs 4gigs of RAM.</p>
+		<p>One things to consider with Lambdas is <i>time</i>, you are billed for the duration of usage as well as power, so in some sense adding more power can <strong>reduce</strong> costs, more power = less time taken = less time needed for that machine = less cost</p>
+		<p>That has diminishing returns keep in mind, your hello world app wont benefit from the 4gigs of ram, so you'll loose money but sometimes it's cheaper (and faster!) to use a beefier lambda.</p>
+		<p>Tools exist that can help you calculate the <a href="https://github.com/alexcasalboni/aws-lambda-power-tuning">most cost efficient power settings</a> common sense is usually the quickest and most efficient way to choose memory, general rule if it seems really slow definitely play around with the setting!</p>
+		<h2>Timeout</h2>
+		<p>You can configure a lambda timeout, that's a good one to make sure your AWS bills don't blow up but they have a maximum of <strong>15 minutes</strong> after which they will stop, as in bye bye runtime environment</p>
+		<p>It's understandable why this exists but it presents one of AWS lambdas biggest weaknesses.</p>
+		<p>
+			Lets say you have a daily task to go through a list of records in yout database and do a 3rd Party check on them. Cool that takes 5 minutes at 1769MB of RAM, cool.
+			Then you scale up, oh now there's 10x the users and suddenly that job takes over 15 minutes, oh dear. The job will stop and die.
+		</p>
+		<p>Now you could have made the argument to plan that in from the start but software planning is difficult, time-consuming and ultimately runs the risk of going nowhere slowly. Now sometimes it's obvious, if you know it's going to take an hour to run don't start with a lambda but mistakes happen.</p>
+		<p>There's a few way to counteract this if you end up in the situation, but it's not a fun problem to have here's a few things both pre-meditative and what you can do if your find yourself in the situation:</p>
+		<ul>
+			<li>Cloudwatch Alarms, setup an alarm to raise when any job goes over 5, 10, 12 minutes. This might give you time for an architectural re-think</li>
+			<li>Switch to using a dedicated server, ECS or EC2 will work, obvious implication on the cost with this one, use this one if your not upset about loosing your serverless badge</li>
+			<li>Chunk up your job, Lambdas can run in parallel so diviying up the task and use something like a Message Queue can work</li>
+		</ul>
+		<p>Lambda timeouts are an interesting topic, and when designing a task or action as a lambda ask the question 'Will this ever take over 15 minutes?' could save you from disaster!</p>
+		<h2>Concurrency</h2>
+		<p>Concurrency is the amount of lambdas at once you can have running, important note with this one is that if you go over. The lambda will reject you and not queue, these can come up when stress testing</p>
+		<p>By default you can have 1000 Lambdas executing at once, that sounds like a lot but on large scale systems, its feasible you can breach that limit. You can dedicate a maximum for a single lambda up to your limit, this can be a good safety net incase of DDOS to save you some money.</p>
+		<p>Of course if your ever performing a stress test or chaos testing, observing system behaviour here may be important.</p>
+		<h1>Performance Testing Lambdas</h1>
+		<p>The first decision you need to make is how you will invoke the lambdas, either directly or via a configured API Gateway. The <a href="https://github.com/alexcasalboni/aws-lambda-power-tuning">aforementioned lambda tuner</a> is quite a good tool to performance test Lambdas directly.</p>
+		<p>If your like me and are dealing with a complex CRUD application using the API Gateway any common API performance testing tool will suffice. (Please dont use JMeter.)</p>
+		<h2>What to Measure</h2>
+		<ul>
+			<li><strong>Invocation Errors:</strong> Count the number of errors occurring during Lambda invocations.</li>
+			<li><strong>Concurrency:</strong> Monitor how many requests the Lambda function can handle simultaneously.</li>
+			<li><strong>Memory Usage:</strong> Measure the memory used by the Lambda function during execution.</li>
+			<li><strong>Execution Duration:</strong> Measure the time the function takes to execute the business logic.</li>
+			<li><strong>Cold Start Duration:</strong> Measure the time taken for AWS Lambda to initialize during a cold start.</li>
+			<li><strong>Request Latency:</strong> Track the end-to-end latency from when the request is made to when the response is received.</li>
+		</ul>
+		<h4>Cold Starts</h4>
+		<p>Let's dive into an aspect I haven't discussed yet: Cold Starts. They're a more significant issue for AWS Lambdas than traditional servers because each lambda runtime starts from fresh. This nature of cold starts means functions that heavily depend on state can face performance bottlenecks. However, you can mitigate this through strategies like using provisioned instances to keep them always running.</p>
+	}
+}

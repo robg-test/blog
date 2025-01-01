@@ -1,0 +1,26 @@
+package blogs
+
+import "github.com/robgtest/blog/web/pages"
+
+templ BlogIntro() {
+	@pages.BlogPage("An introduction to Bob") {
+		<h1>Who is the Sweaty Fox?</h1>
+		<p>Welcome to my blog. From my work as a QA, I've often received advice such as:</p>
+		<ul>
+			<li>"You should write this down."</li>
+			<li>"Why does this JIRA ticket just say 'Performance Test X'?"</li>
+			<li>A blog would be a good objective.</li>
+		</ul>
+		<p>
+			I suppose this blog will help clarify my thoughts, providing some form of mental catharsis in the process. Hopefully, in the long term, it will improve my ability to be more articulate. Who knows, maybe I'll be relaxing on a yacht someday, attributing my success to this blog. Or not
+		</p>
+		<h1>Bob</h1>
+		<img src="../../images/bob.jpg" alt="Bob"/>
+		<p>The sweaty fox in the flesh.</p>
+		<p>Will keep this part short, I'm Bob I live and work in sunny Yorkshire in the city of Leeds. I like travelling alot, hiking outdoorsy stuff while pondering life endlessly.</p>
+		<h1>The Blog</h1>
+		<p>This blog is created using Go templ and is open source. Everything is built from scratch. <a href="https://github.com/robg-test/blog">See here if you're interested!</a></p>
+		<p>Did you know go-templ was made by a-h who's based in Leeds? Yorkshire represent!</p>
+		<div class="divider"></div>
+	}
+}

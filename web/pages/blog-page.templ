@@ -2,20 +2,28 @@ package pages
 
 import "github.com/robgtest/blog/web/components"
 
-templ IndexPage() {
-	<html data-theme="retro">
+templ BlogPage(content string) {
+	<html>
 		<head>
 			<script src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<link href="./styles.css" rel="stylesheet"/>
+			<meta name="description" content={ content }/>
+			<link href="../../styles.css" rel="stylesheet"/>
 		</head>
 		<body>
-			<!-- <div class="mx-auto grid min-h-screen grid-cols-1 gap-10"> -->
-			<div class="flex flex-col min-h-screen gap-5">
+			<div class="flex flex-col min-h-screen">
 				@components.Navigation()
-				<div id="content" class="flex flex-grow justify-center items-center">
-					@components.BlogLibrary()
+				<div id="content" class="flex flex-grow justify-center items-center mx-auto w-10/12">
+					<div>
+						<div>
+							<div class="prose">
+								@components.Breadcrumb()
+								{ children... }
+								@components.ArticleFooter()
+							</div>
+						</div>
+					</div>
 				</div>
 				@components.Footer()
 			</div>

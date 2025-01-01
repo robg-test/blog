@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/robgtest/blog/internal"
 	"github.com/robgtest/blog/web/blogs"
-	"github.com/robgtest/blog/web/components"
+	"github.com/robgtest/blog/web/blogs/stoicism"
 	"github.com/robgtest/blog/web/pages"
 )
 
@@ -37,17 +37,12 @@ func setupPageHandlers(router *mux.Router) {
 		indexPage := pages.IndexPage()
 		templ.Handler(indexPage).ServeHTTP(w, r)
 	})
-	router.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
-		blogLibrary := components.BlogLibrary()
-		templ.Handler(blogLibrary).ServeHTTP(w, r)
-	})
 }
 
 func setupStaticHandlers(router *mux.Router, loadableImages []string) {
 	router.HandleFunc("/styles.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./web/static/css/output.css")
 	})
-
 	router.HandleFunc("/images/{path}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		for key, value := range vars {
@@ -101,9 +96,16 @@ func setup() {
 func setupBlogHandler(router *mux.Router) {
 	router.HandleFunc("/blog/{id}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
+		log.Println("Blog Requested")
 		var blog templ.Component
 		if vars["id"] == "1" {
-			blog = blogs.BlogWhenInDoubt()
+			blog = blogs.BlogIntro()
+		}
+		if vars["id"] == "2" {
+			blog = blogs.AWSServerlessBlog()
+		}
+		if vars["id"] == "3" {
+			blog = stoicism.ControlAndChoice()
 		}
 		templ.Handler(blog).ServeHTTP(w, r)
 	})
