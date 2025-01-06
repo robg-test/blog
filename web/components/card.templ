@@ -1,7 +1,7 @@
 package components
 
 templ Card(name string, description string, image string, id string, time string) {
-	<div class="card bg-base-100 image-full w-96 shadow-xl">
+	<a href={ templ.URL("/blog/" + id) } class="card bg-base-200 image-full w-96 shadow-xl">
 		<figure>
 			<img
 				src={ image }
@@ -24,11 +24,6 @@ templ Card(name string, description string, image string, id string, time string
 				</div>
 			</div>
 			<p>{ description }</p>
-			<div class="card-actions justify-end">
-				<a href={ templ.URL("/blog/" + id) }>
-					<button class="btn btn-primary">Read</button>
-				</a>
-			</div>
 		</div>
-	</div>
+	</a>
 }

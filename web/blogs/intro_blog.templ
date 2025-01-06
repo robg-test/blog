@@ -1,10 +1,16 @@
 package blogs
 
-import "github.com/robgtest/blog/web/pages"
+import (
+	"github.com/robgtest/blog/web/components"
+	"github.com/robgtest/blog/web/pages"
+)
 
 templ BlogIntro() {
 	@pages.BlogPage("An introduction to Bob") {
-		<h1>Who is the Sweaty Fox?</h1>
+		<figure>
+			<h1>Who is the Sweaty Fox?</h1>
+			@components.BlogTimeCaption("2")
+		</figure>
 		<p>Welcome to my blog. From my work as a QA, I've often received advice such as:</p>
 		<ul>
 			<li>"You should write this down."</li>
@@ -19,7 +25,18 @@ templ BlogIntro() {
 		<p>The sweaty fox in the flesh.</p>
 		<p>Will keep this part short, I'm Bob I live and work in sunny Yorkshire in the city of Leeds. I like travelling alot, hiking outdoorsy stuff while pondering life endlessly.</p>
 		<h1>The Blog</h1>
-		<p>This blog is created using Go templ and is open source. Everything is built from scratch. <a href="https://github.com/robg-test/blog">See here if you're interested!</a></p>
+		<p>
+			This blog is created using Go templ and is open source. The stack of this blog images
+			<ul>
+				<li><strong>Go:</strong> For the servery stuff</li>
+				<li><strong><a href="https://templ.guide">Templ</a>: </strong> For the HTML stuff - Templ Guide</li>
+				<li><strong><a href="https://www.sqlite.org/">SQLite</a>: </strong> For the storage stuff</li>
+				<li><strong><a href="https://redis.io">Redis</a>: </strong> For some more storage stuff</li>
+				<li><strong><a href="https://daisyui.com">TailwindCSS</a>: </strong> For the UI</li>
+				<li><strong><a href="https://daisyui.com">DaisyUI</a>: </strong>For some pre-built HTTP components</li>
+			</ul>
+			<a href="https://github.com/robg-test/blog">See the codebase here if you're interested!</a>
+		</p>
 		<p>Did you know go-templ was made by a-h who's based in Leeds? Yorkshire represent!</p>
 		<div class="divider"></div>
 	}
