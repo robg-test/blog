@@ -15,11 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-
+    
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
         go-version: '1.23'
+
+    - name: Templ
+      run: go install github.com/a-h/templ/cmd/templ@latest
+
+    - name: Templ Generate
+      run: templ generate
 
     - name: Build
       run: go build
