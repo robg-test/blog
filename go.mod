@@ -3,7 +3,7 @@ module github.com/robgtest/blog
 go 1.23.1
 
 require (
-	github.com/a-h/templ v0.2.778
+	github.com/a-h/templ v0.3.819
 	github.com/alexedwards/scs/goredisstore v0.0.0-20240316134038-7e11d57e8885
 	github.com/alexedwards/scs/v2 v2.8.0
 	github.com/gorilla/mux v1.8.1
