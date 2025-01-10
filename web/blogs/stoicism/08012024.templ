@@ -1,0 +1,25 @@
+package stoicism 
+
+import (
+	"github.com/robgtest/blog/web/components"
+	"github.com/robgtest/blog/web/pages"
+)
+
+templ ToBeSteady() {
+	@pages.BlogPage("To Be Unsteady & Steady") {
+		<div>
+			<figure>
+				<h1>Weekly Stoic - To Be Steady and Unsteady</h1>
+				@components.BlogTimeCaption("1")
+			</figure>
+			<p>As I reflect on the first week of work, I'm getting used to all of the negative sides of progress. Expression of emotion is important, assuming they are equally justifiable.</p>
+			<blockquote>
+				<p>Without expression, you welcome repetitive suffering from those who have wronged you.</p>
+			</blockquote>
+			<p>At the same time, the greatest ability in the workplace is not to be without stress but to recover swiftly. Without recovery, pragmatism is difficult because when you are fixated on being wronged, it is challenging to collaborate effectively with others.</p>
+			<blockquote>
+				<p>Without swift recovery, you welcome repetitive suffering for yourself.</p>
+			</blockquote>
+		</div>
+	}
+}

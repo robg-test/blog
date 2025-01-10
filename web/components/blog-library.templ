@@ -1,7 +1,7 @@
 package components
 
 templ BlogLibrary() {
-	<div class="w-2/3 mx-auto grid gap-4 grid-cols-[repeat(auto-fit,minmax(450px,1fr))]">
+	<div class="w-3/4 mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
 		@Card("The Sweatiest Fox",
 			"Ere, what's this then, a new blog. That's a bit shite",
 			"/images/Sweat.webp",
@@ -17,5 +17,17 @@ templ BlogLibrary() {
 			"/images/stoic1.jpeg",
 			"3",
 			"1")
+		@Card("Weekly Stoic - To Be Unsteady & Steady",
+			"Stoicsm for the modern workplace: To be Unsteady & Steady",
+			"/images/stoic2.jpg",
+			"4",
+			"1",
+		)
+		@Card("Was Copilot a mistake?",
+			"Opinions on the implementation of AI for development.",
+			"/images/copilot.webp",
+			"5",
+			"7",
+		)
 	</div>
 }

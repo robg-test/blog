@@ -107,6 +107,12 @@ func setupBlogHandler(router *mux.Router) {
 		if vars["id"] == "3" {
 			blog = stoicism.ControlAndChoice()
 		}
+		if vars["id"] == "4" {
+			blog = stoicism.ToBeSteady()
+		}
+		if vars["id"] == "5" {
+			blog = blogs.IsCopilotADud()
+		}
 		templ.Handler(blog).ServeHTTP(w, r)
 	})
 }
