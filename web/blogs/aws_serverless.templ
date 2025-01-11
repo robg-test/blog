@@ -53,7 +53,7 @@ templ AWSServerlessBlog() {
 		<p>That has diminishing returns keep in mind, your hello world app wont benefit from the 4gigs of ram, so you'll loose money but sometimes it's cheaper (and faster!) to use a beefier lambda.</p>
 		<p>Tools exist that can help you calculate the <a href="https://github.com/alexcasalboni/aws-lambda-power-tuning">most cost efficient power settings</a> common sense is usually the quickest and most efficient way to choose memory, general rule if it seems really slow definitely play around with the setting!</p>
 		<h2>Timeout</h2>
-		<p>You can configure a lambda timeout, that's a good one to make sure your AWS bills don't blow up but they have a maximum of <strong>15 minutes</strong> to complete.
+		<p>You can configure a lambda timeout, that's a good one to make sure your AWS bills don't blow up but they have a maximum of <strong>15 minutes</strong> to complete.</p>
 		<p>It's understandable why this exists but it presents one of AWS lambdas biggest weaknesses.</p>
 		<p>
 			Lets say you have a daily task to go through a list of records in yout database and do a 3rd Party check on them. Cool that takes 5 minutes at 1769MB of RAM, cool.
