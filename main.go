@@ -39,7 +39,7 @@ func main() {
 		keyPath := os.Getenv("KEY_PATH")
 
 		log.Println("Starting secure server on", host)
-		err := http.ListenAndServeTLS(host, certPath, keyPath, nil)
+		err := http.ListenAndServeTLS(host, certPath, keyPath, internal.UserSessionManager.LoadAndSave(router))
 		if err != nil {
 			log.Printf("secure server failed: %s", err)
 		}
