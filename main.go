@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -29,7 +30,27 @@ func main() {
 	setupPageHandlers(router)
 	setupBlogHandler(router)
 	log.Println("Listening on :8080")
-	http.ListenAndServe(":8080", internal.UserSessionManager.LoadAndSave(router))
+
+	env := os.Getenv("ENV")
+	host := ":8080"
+
+	if env == "production" {
+		host = ":443"
+		certPath := os.Getenv("CERT_PATH")
+		keyPath := os.Getenv("KEY_PATH")
+
+		log.Println("Starting secure server on", host)
+		err := http.ListenAndServeTLS(host, certPath, keyPath, nil)
+		if err != nil {
+			log.Printf("secure server failed: %s", err)
+		}
+	} else {
+		log.Println("Starting development server on", host)
+		err := http.ListenAndServe(host, internal.UserSessionManager.LoadAndSave(router))
+		if err != nil {
+			log.Fatalf("server failed: %s", err)
+		}
+	}
 }
 
 func setupPageHandlers(router *mux.Router) {
