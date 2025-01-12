@@ -29,7 +29,6 @@ func main() {
 	setupStaticHandlers(router, loadableImages)
 	setupPageHandlers(router)
 	setupBlogHandler(router)
-	log.Println("Listening on :8080")
 
 	env := os.Getenv("ENV")
 	host := ":8080"
