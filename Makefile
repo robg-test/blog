@@ -5,5 +5,7 @@ dev:
 	air
 
 run:
-	go build -o app .
-	./app
+	templ generate
+	go build
+	./blog
+
