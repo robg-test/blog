@@ -1,6 +1,6 @@
 package components
 
-templ Card(name string, description string, image string, id string, time string) {
+templ Card(name string, description string, image string, id string, time string, badge string) {
 	<a href={ templ.URL("/blog/" + id) } class="card bg-base-200 image-full w-30 h-30 shadow-xl">
 		<figure>
 			<img
@@ -11,6 +11,7 @@ templ Card(name string, description string, image string, id string, time string
 		</figure>
 		<div class="card-body">
 			<h2 class="card-title">{ name }</h2>
+			@BlogBadge(badge)
 			<div class="flex items-center gap-1 opacity-60">
 				<div class="flex items-center justify-center">
 					<svg class="text-[inherit] fill-current" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 32 32">

@@ -1,0 +1,14 @@
+package components
+
+templ BlogBadge(badgeType string) {
+	switch badgeType {
+		case "Wellbeing" :
+			<div class="badge badge-primary">Wellbeing</div>
+		case "Opinion" :
+			<div class="badge badge-secondary">Opinion</div>
+		case "Guide":
+			<div class="badge badge-neutral">Guide</div>
+		default:
+			<div class="badge badge-accent">Other</div>
+	}
+}
