@@ -1,7 +1,7 @@
 package components
 
 templ Card(name string, description string, image string, id string, time string, badge string) {
-	<a href={ templ.URL("/blog/" + id) } class="card bg-base-200 image-full w-30 h-30 shadow-xl">
+	<a href={ templ.URL("/" + id) } class="card bg-base-200 image-full w-30 h-30 shadow-xl">
 		<figure>
 			<img
 				src={ image }

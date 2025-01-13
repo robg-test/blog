@@ -27,8 +27,8 @@ func main() {
 
 	router := mux.NewRouter()
 	setupStaticHandlers(router, loadableImages)
-	setupPageHandlers(router)
 	setupBlogHandler(router)
+	setupPageHandlers(router)
 
 	env := os.Getenv("ENV")
 	host := ":8080"
@@ -114,7 +114,7 @@ func setup() {
 }
 
 func setupBlogHandler(router *mux.Router) {
-	router.HandleFunc("/blog/{id}", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/{id}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		log.Println("Blog Requested")
 		var blog templ.Component
