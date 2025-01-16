@@ -5,10 +5,19 @@ services:
     environment:
       - CERT_PATH=/app/fullchain.pem
       - KEY_PATH=/app/privkey.pem
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     image: bob-productions.dev/blog:v1.0.0
     ports:
       - "443:443"
     volumes:
       - ${CERT_PATH}:/app/fullchain.pem
       - ${KEY_PATH}:/app/privkey.pem
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
 

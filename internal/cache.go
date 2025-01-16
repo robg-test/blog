@@ -14,7 +14,7 @@ var UserSessionManager *scs.SessionManager
 
 func SetupSessionManager() error {
 	log.Println("Setting up session manager")
-	opt, err := redis.ParseURL("redis://localhost:6379")
+	opt, err := redis.ParseURL("redis://redis:6379")
 	if err != nil {
 		panic(err)
 	}
