@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  bob-productions-blog:
+    image: bob-productions.dev/blog:v1.0.0
+    ports:
+      - "443:443"
+    volumes:
+      - ${CERT_PATH}:fullchain.pem
+      - ${KEY_PATH}:privkey.pem
+
