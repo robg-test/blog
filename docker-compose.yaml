@@ -2,6 +2,9 @@ version: "3.8"
 
 services:
   bob-productions-blog:
+    environment:
+      - CERT_PATH=/app/fullchain.pem
+      - KEY_PATH=/app/privkey.pem
     image: bob-productions.dev/blog:v1.0.0
     ports:
       - "443:443"
