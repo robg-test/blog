@@ -6,6 +6,6 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ${CERT_PATH}:fullchain.pem
-      - ${KEY_PATH}:privkey.pem
+      - ${CERT_PATH}:/app/fullchain.pem
+      - ${KEY_PATH}:/app/privkey.pem
 
