@@ -5,21 +5,17 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
-templ ToBeSteady() {
-	@pages.BlogPage("To Be Unsteady & Steady") {
+templ ToBeSteady(theme string) {
+	@pages.BlogPage("To Be Unsteady & Steady", theme) {
 		<div>
 			<figure>
 				<h1>Weekly Stoic - To Be Steady and Unsteady</h1>
 				@components.BlogTimeCaption("1")
 			</figure>
-			<p>As I reflect on the first week of work, I'm getting used to all of the negativities that come with progress. No matter what happens expression of emotion is important, good and bad assuming they are justifiable.</p>
-			<blockquote>
-				<p>Without expression, you welcome repetitive suffering from those who have wronged you as they either do not appreciate your success without joy, weak without anger and uncommited without sadness.</p>
-			</blockquote>
-			<p>With that being said the greatest ability in the workplace is not to be without neuroticism but to recover swiftly from it. Without recovery, pragmatism is difficult because when you are fixated on being wronged, it is challenging to collaborate effectively with others.</p>
-			<blockquote>
-				<p>Without swift recovery from any strong release of emotion good or bad, you welcome repetitive suffering for yourself.</p>
-			</blockquote>
+			<p>As I reflect on the first week back at work, I'm getting used to all of the negativities that come with progress. No matter what happens expression of emotion is important, good and bad assuming they are justifiable.</p>
+			<p>I feel without expression, you welcome repetitive suffering from those who have wronged you as they either do not appreciate your success without joy, weak without anger and uncommited without sadness.</p>
+			<p>With that being said the greatest ability in the workplace is not to be without but to recover swiftly. Without recovery, pragmatism is difficult because when you are fixated on being wronged, it is challenging to collaborate effectively with others.</p>
+			<p>Without swift recovery, you welcome repetitive suffering for yourself.</p>
 		</div>
 	}
 }

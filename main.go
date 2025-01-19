@@ -54,8 +54,23 @@ func main() {
 
 func setupPageHandlers(router *mux.Router) {
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		indexPage := pages.IndexPage()
+		theme := internal.GetMessage("theme", r)
+		log.Printf("Got theme: %v", theme)
+		log.Println("Blog Requested")
+		indexPage := pages.IndexPage(theme)
 		templ.Handler(indexPage).ServeHTTP(w, r)
+	})
+
+	router.HandleFunc("/theme", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("change theme - old theme " + internal.GetMessage("theme", r))
+		if internal.GetMessage("theme", r) != "synthwave" {
+			internal.PutMessage("theme", "synthwave", r)
+			log.Println("change theme - new theme synthwave")
+		} else {
+			internal.PutMessage("theme", "retro", r)
+			log.Println("change theme - new theme retro")
+		}
+		w.WriteHeader(http.StatusOK)
 	})
 }
 
@@ -114,24 +129,24 @@ func setup() {
 }
 
 func setupBlogHandler(router *mux.Router) {
-	router.HandleFunc("/{id}", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/blog/{id}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
+		theme := internal.GetMessage("theme", r)
+		log.Printf("Got theme: %v", theme)
 		log.Println("Blog Requested")
 		var blog templ.Component
-		if vars["id"] == "1" {
-			blog = blogs.BlogIntro()
-		}
-		if vars["id"] == "2" {
-			blog = blogs.AWSServerlessBlog()
-		}
-		if vars["id"] == "3" {
-			blog = stoicism.ControlAndChoice()
-		}
-		if vars["id"] == "4" {
-			blog = stoicism.ToBeSteady()
-		}
-		if vars["id"] == "5" {
-			blog = blogs.IsCopilotADud()
+		switch vars["id"] {
+		case "1":
+			blog = blogs.BlogIntro(theme)
+		case "2":
+			blog = blogs.AWSServerlessBlog(theme)
+		case "3":
+			blog = stoicism.ControlAndChoice(theme)
+		case "4":
+			blog = stoicism.ToBeSteady(theme)
+		case "5":
+			blog = blogs.IsCopilotADud(theme)
+
 		}
 		templ.Handler(blog).ServeHTTP(w, r)
 	})

@@ -2,8 +2,8 @@ package pages
 
 import "github.com/robgtest/blog/web/components"
 
-templ IndexPage() {
-	<html data-theme="retro">
+templ IndexPage(theme string) {
+	<html data-theme={ theme }>
 		<head>
 			<script src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
 			<meta charset="UTF-8"/>
@@ -13,7 +13,7 @@ templ IndexPage() {
 		<body>
 			<!-- <div class="mx-auto grid min-h-screen grid-cols-1 gap-10"> -->
 			<div class="flex flex-col min-h-screen gap-5">
-				@components.Navigation()
+				@components.Navigation(theme)
 				<div class="hero bg-base-200 min-h-24 shadow-xl justify-center w-3/4 mx-auto">
 					<div class="hero-content flex-col lg:flex-row">
 						<img
@@ -22,7 +22,7 @@ templ IndexPage() {
 						/>
 						<div>
 							<h1 class="text-3xl font-bold">The Blog of Bob</h1>
-							<p class="py-6">Performance Tester, Philosopher, Lover, Beer Lover and now Part-Time Blogger</p>
+							<p class="py-6">Performance Tester, Warrior-Poet, Lover, Beer Lover and now Part-Time Blogger</p>
 						</div>
 					</div>
 				</div>

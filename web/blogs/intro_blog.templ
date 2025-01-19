@@ -5,8 +5,8 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
-templ BlogIntro() {
-	@pages.BlogPage("An introduction to Bob") {
+templ BlogIntro(theme string) {
+	@pages.BlogPage("An introduction to Bob", theme) {
 		<figure>
 			<h1>Who is the Sweaty Fox?</h1>
 			@components.BlogTimeCaption("2")

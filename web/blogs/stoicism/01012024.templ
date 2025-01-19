@@ -5,18 +5,19 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
-templ ControlAndChoice() {
-	@pages.BlogPage("Control and choice") {
+templ ControlAndChoice(theme string) {
+	@pages.BlogPage("Control and choice", theme) {
 		<div>
 			<figure>
 				<h1>Weekly Stoic - Control & Change</h1>
 				@components.BlogTimeCaption("1")
 			</figure>
-			<p>As I look forward to the new year, and consider all the missed deadlines, lofty expectations of the previous year, and the successes accomplished, it's so easy to interpret in either way whether you were actually successful based off of whatever mood I'm in at the moment.</p>
-			<p>To reinterpret a single missed deadline as a complete failure or the fact that three lines of code got deployed to production an overwhelming success.</p>
-			<p>As I look forward to the new year, with more deadlines on the way more madness to handle and more dominoes pizza at something that resembles myself, it's important I stick to my principles and remember:</p>
+			<p>Deadlines as testers are as you imagine, always tremeendously difficult part of the job, Much research has been put into QA not to be the final hurdle when things get tight but it's a necessary part of working software.</p>
+			<p>As I look forward to the new year, and consider all the missed deadlines, lofty expectations of the previous year, and the successes accomplished, it's so easy to interpret in either way whether you were actually successful based off of whatever mood your in at the moment.</p>
+			<p>To interpret a single missed deadline as a complete failure or the fact that three lines of code got deployed to production an overwhelming success.</p>
+			<p>As I look forward to the new year, with more deadlines on the way more madness to handle, it's important I stick to my principles and remember:</p>
 			<blockquote>
-				<p>God grant me the serenity to accept that we are not going to meet nearly all deadlines, the courage to temper expectations, and the wisdom to keep it together while delivering the inevitable compromises.</p>
+				<p>God grant me the serenity to accept that we are not going to meet most deadlines, the courage to temper expectations, and the wisdom to keep it together with the inevitable compromise.</p>
 			</blockquote>
 		</div>
 	}
