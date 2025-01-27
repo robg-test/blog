@@ -3,6 +3,7 @@ package internal
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/alexedwards/scs/goredisstore"
@@ -12,9 +13,18 @@ import (
 
 var UserSessionManager *scs.SessionManager
 
+func getRedisURI() string {
+	redisURI := os.Getenv("REDIS_URI")
+	if redisURI == "" {
+		redisURI = "localhost"
+	}
+	return redisURI
+}
+
 func SetupSessionManager() error {
 	log.Println("Setting up session manager")
-	opt, err := redis.ParseURL("redis://localhost:6379")
+
+	opt, err := redis.ParseURL("redis://" + getRedisURI() + ":6379")
 	if err != nil {
 		panic(err)
 	}
