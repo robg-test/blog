@@ -2,7 +2,7 @@ FROM golang:1.23
 
 WORKDIR /app
 
-RUN git clone https://github.com/robg-test/blog /app
+RUN git clone --branch blog https://github.com/robg-test/blog /app
 
 RUN go install github.com/a-h/templ/cmd/templ@latest && \
   templ generate && \
