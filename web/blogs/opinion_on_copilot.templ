@@ -6,92 +6,54 @@ import (
 )
 
 templ IsCopilotADud(theme string) {
-	@pages.BlogPage("Coplilot, a bad implementation", theme) {
+	@pages.BlogPage("AI Auto-complete, a bad implementation?", theme) {
 		<div>
 			<figure>
-				<h1>GitHub Coplilot Code Completion, a bad implementation?</h1>
+				<h1>AI Code Completion, a bad implementation?</h1>
 				@components.BlogTimeCaption("7")
 			</figure>
 			<p>AI is causing a big transformation in the software development field in practically all areas, there's no doubt about that, with the success of LLM these tools are no doubt great for productivity.</p>
-			<p>My biggest pet peeve though is Copilot. No doubt there's been tremendous effort to implement it and it's presence an important step for AI in Software development but in my opinion it's caused everyone to try and jump on a bandwagon of what I personally feel as a tool feels a bit lacking. For me far too obtrusive which reminds me of someone:</p>
+			<p>My biggest pet peeve though is Copilot. No doubt tremendous effort to implement it but in my opinion, it doesn't feel right. It's annoying, and guess who that reminds me of.</p>
 			<figure>
 				<img class="shadow-xl rounded-lg" src="../../images/isitclippy.jpeg"/>
 				<figcaption>A revolutionary tool? Or shades of clippy?</figcaption>
 			</figure>
-			<h2>Why I'm not a fan</h2>
-			<p>I like to create connections to real life it's ultimately what software tends to represent as we exist in the same reality as the computer. AI can be interpreted in many ways but here's my view:</p>
+			<h2>The second coming of Clippy?</h2>
 			<p>
-				AI as it currently stands, reminds me of an overly ambitious student. When I give it some instruction whether that be in the form of a direct ask it can <strong>VERY QUICKLY</strong> trawl a rather large library it'll go find the book it needs to formulate an answer maybe it needs a couple.
-				and with a somewhat optimistic outlook will try and present an answer to you. Great but this brings me to a major hurdle ai faces being that the consensus on it's correctness belongs to the user of the AI not the AI itself (This may change when I finally get round to publishing this). Which is currently the biggest hurdle AI faces.
+				AI for me, reminds me of an ambitious student. When I give it some instruction whether that be in the form of a direct ask it can <strong>quickly</strong> trawl a rather large library it'll go find the book it needs to formulate an answer.
+				With a somewhat optimistic outlook it will try and present an answer. Great but this brings me to a major problem. If things go wrong. I'm responsible, and from my point of view where a long way from that changing.
 			</p>
-			<p>So there that's a very quick opinion from someone who's only right to an opinion is democracy (Something that a majority of CEO's could do with remembering). You'd need a very good data scientist for further understanding.</p>
-			<p>Copilot for those that don't know is an AI tool, that does a few things but I want to focus on code completion, which is probably the most common use-case</p>
-			<p>Given that let's dig into the problems Copilot auto-complete faces</p>
-			<h2>Copilot auto-complete is Annoying</h2>
-			<p>
-				Okay so my biggest pet peeve with Copilot auto-complete is that I can't exactly communicate when I don't WANT it to try and guess, the library it's using may not have a certain book. E.g. I've been using go-templ for this site AI doesnt know about it yet or has limited knowledge
-				So it's making some very annoying guesses often times based on my own code as to what the solution is, which personally casues my blood to boil, this leads to point two.
-			</p>
+			<p>I want to talk specifically about Copilot for those that don't know is an AI tool, that does a few things but I want to really focus in on code completion, which is probably the most common use-case.</p>
+			<p><strong>So let's get to it:</strong></p>
+			<h2>Copilot Auto-Complete is Annoying</h2>
 			<figure>
 				<img class="shadow-xl rounded-lg" src="../../images/annoying.webp"/>
 			</figure>
+			<p>
+				Okay so my biggest pet peeve with Copilot auto-complete is that I have limits on what I communicate when I don't want it to try and guess, the library it's using may not have a certain book. E.g. I've been using go-templ for this site AI doesnt know about it yet or has limited knowledge.
+				So it's making some very annoying guesses often times based on my own code as to what the solution is, which casues my blood to boil, conveniently this leads to point two.
+			</p>
 			<h2>New Frameworks suffer</h2>
 			<p>
-				IT keeps changing, tools are absolutely no means perfect yet Copilot auto-complete rewards you for sticking to the grain which can be good, well hell I wish that would be the case in some instances but for every bad serverless slop tool, there's usually a good tool, which Copilot won't know which may disuade people.
-				and on the topic of sticking to the grain:
+				IT keeps changing, tools are absolutely no means perfect yet Copilot auto-complete rewards you for sticking to the grain which can be good, well hell I wish that would be the case in some instances but for every bad tool, there's usually a good tool, which Copilot won't know which may disuade people from exploring new tools and new tools getting their time in the limelight
+				<p>Autocomplete exacerbates this problem, by trying to make awful guesses maybe this gets better in time and Copilot wil learn not to try but it drive me <i>insane</i></p>
 			</p>
 			<h2>Copilot auto-complete eats suggestions</h2>
-			<p>Copilot auto-complete eats several slots of what my IDE wants me to do, the LSP is an important tool. For those not in the know thats your Language server provider, which effectively tells you the methods available on objects, what you can do with that array etc.</p>
-			<p>For every suggestion Copilot auto-complete provides, you loose two valid LSP points, you miss a potential option on a method you dont see. Overall not great, what did Copilot do to justify that.</p>
-			<h2>The slow decay of my brain</h2>
+			<p>Copilot auto-complete eats several slots of what my IDE wants me to do, your LSP is an important tool, which effectively tells you the methods available on objects, what you can do with that array etc.</p>
+			<p>For every suggestion Copilot auto-complete provides, you loose two other things, you miss a potential option on a method you dont see.</p>
+			<h2>Humans are born problem-solvers</h2>
 			<p>
-				I've recently been reading about dementia recently and in that book it suggests to combat dementia one of the recommendations is to not use satellite navigation, why? 
+				I've reading about dementia recently and in that book it suggests to combat dementia you should not use satellite navigation, why? 
 				<p>It apparently causes the hippocampus to diminish because the part that remembers which turn off to take or which direction your going comes from that part of the brain</p>
 				<p>Your brain is an important muscle to train. Now I'm not going to be silly and make a prediction that the advent of AI will cause mass dementia but it does make me wonder of the long term effects that AI will have on our brains</p>
 				<p>Copilot auto-complete is the worst case implemention for this without even letting me trying to figure out the problem on my own, it's already guessed it for me. Like don't get me wrong I can't 'know' everything but I do remember some things. For some reason being told how to write log lines everytime doesn't feel helpful.</p>
 			</p>
-			<h1>An Alternative</h1>
-			<p>Ill preface the belows section with: I use Neovim btw.</p>
-			<p>Unfortunately I don't know of really a good implementation of this yet in Jetbrains or VSCode. Please let me know if you have a good one!</p>
-			<figure>
-				<img class="shadow-xl rounded-lg" src="../../images/vim-user.png"/>
-				<figcaption class="mx-auto text-center">Average neovim user</figcaption>
-			</figure>
-			<h2>GP.nvim</h2>
-			<p>I really like <a href="https://github.com/Robitx/gp.nvim">https://github.com/Robitx/gp.nvim</a></p>
-			<p>It changes the focus of AI being in my face and puts it as a unobtrusive tool. As opposed to the Copilot auto-complete approach to code being thrown at me at every turn, It's when I need it.</p>
-			<p>Now it's not much different than actually just using the GPT web client but it does have some pretty cool features I think are great, and certainly there's room for more polish.</p>
-			<h3>The Terminal</h3>
-			<p>
-				The GPT client, a nice <kbd class="kbd">Ctrl</kbd><kbd class="kbd">g</kbd> + <kbd class="kbd">Ctrl</kbd><kbd class="kbd">v</kbd> opens up a nice terminal window akin to ChatGPT main website. Important for me as it has full vim support.
-				Not much to say about this one, it saves the chats into my IDE and it's probably cheaper than the premium GPT's since it uses the API.
-			</p>
-			<h3>Rewrites, Prepends and Appends</h3>
-			<p>
-				This is the juice, GPT rewrites are my favorite part of using AI now, and it honestly feels like cheating.
-				Creating a visual selection and makes me feel great without the usual obtrusiveness of AI for example <kbd class="kbd">Ctrl</kbd><kbd class="kbd">g</kbd><kbd class="kbd">r</kbd>
-			</p>
-			opens a one line window, type in any instruction, feeling, rewording and AI will do the instruction on that set of text. Words can't do it justice
-			<p>And it feels <strong>good.</strong></p>
-			<ol class="steps-list">
-				<li class="step-item">
-					<p class="step-description">Have some code and select the text</p>
-					<img class="step-image shadow-xl rounded-lg" src="../../images/pre-whisper.png" alt="Initial code"/>
-				</li>
-				<li class="step-item">
-					<p class="step-description">Hit that rewrite button and give it a prompt</p>
-					<img class="step-image shadow-xl rounded-lg" src="../../images/seductive.webp" alt="Rewrite prompt"/>
-					<figcaption class="step-caption">My prompt "Ooh Make this JSON string a python object."</figcaption>
-				</li>
-				<li class="step-item">
-					<p class="step-description">Profit</p>
-					<img class="step-image shadow-xl rounded-lg" src="../../images/post-whisper.png" alt="Final output"/>
-				</li>
-			</ol>
-			<h1>In Conclusion</h1>
-			<p>
-				I really look forward to when we grow out of the awkward phase of AI and hope to optimize the tools instead of battling out which AI can play a good game of chess. I also really hope that those entirely against AI realize that it's here and it's an advantage everyone will utimately have to utilize.
-			</p>
+			<h1>Conclusion</h1>
+			<p>So I hate copilot autocomplete, and I seriously dislike the fact that it's the dominant tool type</p>
+			<p>We should be definitely steering devs to <a href="https://docs.github.com/en/copilot/using-github-copilot/guides-on-using-github-copilot/refactoring-code-with-github-copilot">refactoring tools over Autocomplete</a></p>
+			<blockquote>
+				<p>On AI 25%: of the time I know what to do, The next 25% AI know what to do, The next 25% I know AI is making it up and the final 25% is finding out the hard way</p>
+			</blockquote>
 		</div>
 	}
 }
