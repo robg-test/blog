@@ -84,7 +84,6 @@ func setupStaticHandlers(router *mux.Router, loadableImages []string) {
 			if key == "path" {
 				log.Printf("Loading image: %s", value)
 				for _, image := range loadableImages {
-					log.Printf("Lookup on Image: %s", image)
 					if strings.Compare(value, image) == 0 {
 						// process each image
 						log.Println("Presenting Image")
