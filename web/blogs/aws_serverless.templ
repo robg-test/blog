@@ -5,24 +5,24 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
-templ AWSServerlessBlog(theme string) {
-	@pages.BlogPage("A guide to serverless performance testing and tuning", theme) {
+templ AWSServerlessBlog(theme string, views int) {
+	@pages.BlogPage("A guide to serverless performance testing and tuning", theme, views) {
 		<figure>
 			<h1>A Performance Testers Guide to AWS Lambdas</h1>
 			@components.BlogTimeCaption("10")
 		</figure>
-		<p>I'm often finding myself performance testing cloud software as of recently and a pet peeve of mine is when a miracle series of tools designed to take away server management implies you can bypass a lot of the things that make servers, well servers.</p>
-		<p>A common misconception about serverless computing is that it means not using a server at all. In reality, 'serverless' means that you don't <strong>manage</strong> the server; instead, the cloud provider handles it for you. This distinction is crucial as that misconception leads to a whole heap of problems, often times with system performance, often times with system performance.</p>
+		<p>I'm often finding myself performance testing cloud software as of recently and a pet peeve of mine is when a miracle series of tools designed to take away server management and allows endless scaling implying you can bypass a lot of the things that make servers, well servers.</p>
+		<p>A common misconception about serverless computing is that it means not using a server at all. In reality, 'serverless' means that you don't <strong>manage</strong> the server; instead, the cloud provider handles it for you. This distinction is crucial as that misconception leads to a whole heap of problems, often times with system performance.</p>
 		<figure>
 			<img class="mx-auto shadow-xl rounded-lg" src="../../images/serverless.png" alt="Not quite serverless" style="width:50%;"/>
 			<figcaption class="mx-auto text-center">Serverless but not AWS Serverless</figcaption>
 		</figure>
-		<p>In my opinion AWS can sometimes be unclear about the details of an offering. I'm not sure for other providers such as Azure functions this remains the same but I presume some of the problems may be shared, This article will cover common pitfalls, how to configure lambdas and how to ensure you have performant serverless components.</p>
+		<p>In my opinion AWS can sometimes be unclear about the details of an offering. I'm not sure for other providers such as Azure functions this remains the same but I presume some of the problems may be shared, This article will cover common pitfalls, how to configure lambdas.</p>
 		<h2>Lambdas</h2>
 		<p>
-			Lambdas are individual runtimes you borrow that you can use for a period of time up to 15 minutes, if two requests come in at the same time, you get two of them, three at the same time? you get three. Up to a configurable limit. If requests happen one after another you use the first one twice. They dont end immediately after finishing you provision the underlying runtime for a bit and after that time they're gone.
+			Lambdas are individual runtimes you borrow that you can use for a period of time up to 15 minutes, if two requests come in at the same time, you get two runtimes, three at the same time? you get three. Up to a configurable limit or 1000 by default. If requests happen one after another you use the first one twice. They dont end immediately after finishing you provision the underlying runtime for a bit and after that time they're gone.
 		</p>
-		<p>This is actually the best part of lambdas and where it gets the 'autoscaling' from, the more you call the more lambdas you get easy!</p>
+		<p>This is actually the best part of lambdas and where it gets the 'autoscaling' from, the more you call the more lambdas you get!</p>
 		Each Lambda function operates within its own isolated environment, having its own dedicated resources. While it utilizes containerization under the hood, you don't need to worry about the technical specifics—just think of each Lambda as its own independent machine with very limited configuration options
 		<p>Hopefully the diagram conveys the basics</p>
 		<img class="shadow-xl rounded-lg" src="../../images/LambdaBrief.png"/>
@@ -38,8 +38,8 @@ templ AWSServerlessBlog(theme string) {
 			<li><strong>Provisioned Concurrency:</strong>You have 1000 concurrent executions of lambdas, here you can provision a set amount <strong>warning:</strong> you will get UP to the number, you won't overflow into the 1000 so be careful with this setting or prepare to be throttled</li>
 		</ul>
 		<h3>Memory</h3>
-		<p>Oh boy, my pet peeve with AWS lambdas is this - More memory is just more RAM right? Well no, since this is where the CPU setting is, and that's probably not the only thing. Here lies the equivelant of an Ec2 specification.</p>
-		<p>Honestly if I could give AWS one piece of feedback, it's this. Tell me what CPU I'm getting. Maybe it's since it's VCPU? but trying to explain that, would it be too confusing? But honestly? no idea.</p>
+		<p>Oh boy, my pet peeve with AWS lambdas is this - More memory is just more RAM right? No, since this is where the CPU setting is, and that's probably not the only thing. Here lies the equivelant of an Ec2 specification.</p>
+		<p>Honestly if I could give AWS one piece of feedback, it's this. Tell me what CPU I'm getting and a detailed spec of what my runtimes looks like! Maybe it's since it's VCPU No idea!</p>
 		<figure>
 			<img src="../../images/thismuchcpu.png"/>
 			<figcaption style="display: flex; align-items: center;">
@@ -48,16 +48,16 @@ templ AWSServerlessBlog(theme string) {
 		</figure>
 		<p>A handy cheatsheet can be found <a href="https://stackoverflow.com/questions/66522916/aws-lambda-memory-vs-cpu-configuration">here</a>, that has a table of X Memory = X CPU</p>
 		<h3>Increasing the Memory</h3>
-		<p>So you've decided you need a beefier lambda, the default is 128mb <strong>PUNY</strong> your hello world app clearly needs 4gigs of memory.</p>
+		<p>So you've decided you need a beefier lambda, the default is 128mb <strong>PUNY</strong> your hello world app clearly needs 4GB of memory.</p>
 		<p>One things to consider with Lambdas is <i>time</i>, you are billed for the duration of usage as well as power, so in some sense adding more power can actually <strong>reduce</strong> costs, more power = less time taken = less time needed for that machine = less cost</p>
 		<p>That has diminishing returns keep in mind, your hello world app wont benefit from the 4gigs of ram, so you'll loose money in that scenario but commonly it's cheaper (and faster!) to use a beefier lambda.</p>
-		<p>Tools exist that can help you calculate the <a href="https://github.com/alexcasalboni/aws-lambda-power-tuning">most cost efficient power settings</a> common sense is usually the quickest and most efficient way to choose memory, general rule if it seems really slow definitely play around with the setting!</p>
+		<p>Tools exist that can help you calculate the <a href="https://github.com/alexcasalboni/aws-lambda-power-tuning">most cost efficient power settings exist</a> albeit common sense is usually the quickest and most efficient way to choose memory, general rule if it seems really slow definitely play around with the setting!</p>
 		<h2>Timeout</h2>
-		<p>You can configure a lambda timeout, that's a good one to make sure your AWS bills don't blow up but they have a maximum of <strong>15 minutes</strong> to complete.</p>
+		<p>You can configure a Lambda timeout, that's a good one to make sure your AWS bills don't blow up but they have a maximum of <strong>15 minutes</strong>.</p>
 		<p>It's understandable why this exists but it presents one of AWS lambdas biggest weaknesses.</p>
 		<p>
 			Lets say you have a daily task to go through a list of records in yout database and do a 3rd Party check on them. Cool that takes 5 minutes at 1769MB of RAM, cool.
-			Then you scale up, oh now there's 10x the users and suddenly that job takes over 15 minutes, oh dear. The job will stop and die.
+			Then you scale up, oh now there's 10x the users and suddenly that job takes over 15 minutes, oh dear. The job will stop and die before it finishes, and you end up vertically scaling! Yuck.
 		</p>
 		<p>Now you could have made the argument to plan that in from the start but software planning is difficult, time-consuming and ultimately runs the risk of going nowhere slowly. Now sometimes it's obvious, if you know it's going to take an hour to run don't start with a lambda but mistakes happen.</p>
 		<p>There's a few way to counteract this if you end up in the situation, but it's not a fun problem to have here's a few things both pre-meditative and what you can do if your find yourself in the situation:</p>
@@ -87,7 +87,7 @@ templ AWSServerlessBlog(theme string) {
 		<p>Let's dive into an aspect I haven't discussed yet: Cold Starts. They're a more significant issue for Lambdas than traditional servers because each lambda runtime starts from fresh. Cold starts mean functions that heavily depend on state can face performance bottlenecks. So if you rely on an app that needs heavy usage of memory consider alternative options </p>
 		<h2>Measuring Lambdas</h2>
 		<p>Measuring lambdas is actually one of the easy parts of Lambda maintenance.</p>
-		<p>No setup required, want proof of good performance just send a link to this. Easy</p>
+		<p>No setup required, want proof of good performance just send a link to this, it makes assessing performance easy. (And one of the reasons to use serverless!)</p>
 		<figure>
 			<img src="../../images/dashboard.png"/>
 			<figcaption style="display: flex; align-items: center;">
@@ -95,6 +95,6 @@ templ AWSServerlessBlog(theme string) {
 			</figcaption>
 		</figure>
 		<h2>In Conclusion</h2>
-		<p>AWS Lambdas are not a miracle pancea to the server maintenance problem. You can forgo paying the devil it's due but at some point you need to pay!</p>
+		<p>AWS Lambdas are not a miracle solution to the server maintenance problem, there's a whole ton of thought and configuration required. So when using serverless beware!</p>
 	}
 }

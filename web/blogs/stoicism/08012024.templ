@@ -5,8 +5,8 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
-templ ToBeSteady(theme string) {
-	@pages.BlogPage("To Be Unsteady & Steady", theme) {
+templ ToBeSteady(theme string, views int) {
+	@pages.BlogPage("To Be Unsteady & Steady", theme, views) {
 		<div>
 			<figure>
 				<h1>Weekly Stoic - To Be Steady and Unsteady</h1>

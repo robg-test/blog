@@ -5,8 +5,8 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
-templ ControlAndChoice(theme string) {
-	@pages.BlogPage("Control and choice", theme) {
+templ ControlAndChoice(theme string, views int) {
+	@pages.BlogPage("Control and choice", theme, views) {
 		<div>
 			<figure>
 				<h1>Weekly Stoic - Control & Change</h1>

@@ -5,8 +5,8 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
-templ IsCopilotADud(theme string) {
-	@pages.BlogPage("AI Auto-complete, a bad implementation?", theme) {
+templ IsCopilotADud(theme string, views int) {
+	@pages.BlogPage("AI Auto-complete, a bad implementation?", theme, views) {
 		<div>
 			<figure>
 				<h1>AI Code Completion, a bad implementation?</h1>

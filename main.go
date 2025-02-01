@@ -7,11 +7,13 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
 	"github.com/robgtest/blog/internal"
+	"github.com/robgtest/blog/internal/services"
 	"github.com/robgtest/blog/web/blogs"
 	"github.com/robgtest/blog/web/blogs/stoicism"
 	"github.com/robgtest/blog/web/pages"
@@ -115,7 +117,7 @@ func getImagesList() ([]string, error) {
 }
 
 func setup() {
-	err := internal.InitDB("main.db")
+	err := internal.InitDB(os.Getenv("TURSO_DATABASE"))
 	if err != nil {
 		panic(err)
 	}
@@ -133,20 +135,33 @@ func setupBlogHandler(router *mux.Router) {
 		theme := internal.GetMessage("theme", r)
 		log.Printf("Got theme: %v", theme)
 		log.Println("Blog Requested")
-		var blog templ.Component
-		switch vars["id"] {
-		case "1":
-			blog = blogs.BlogIntro(theme)
-		case "2":
-			blog = blogs.AWSServerlessBlog(theme)
-		case "3":
-			blog = stoicism.ControlAndChoice(theme)
-		case "4":
-			blog = stoicism.ToBeSteady(theme)
-		case "5":
-			blog = blogs.IsCopilotADud(theme)
-
+		id, err := strconv.Atoi(vars["id"])
+		if err != nil {
+			// Handle error
+			return
 		}
+
+		views, err := services.GetBlogView(id)
+		if err != nil {
+			log.Printf("Error getting blog view count: %v", err)
+			return
+		}
+
+		var blog templ.Component
+		switch id {
+		case 1:
+			blog = blogs.BlogIntro(theme, views)
+		case 2:
+			blog = blogs.AWSServerlessBlog(theme, views)
+		case 3:
+			blog = stoicism.ControlAndChoice(theme, views)
+		case 4:
+			blog = stoicism.ToBeSteady(theme, views)
+		case 5:
+			blog = blogs.IsCopilotADud(theme, views)
+		}
+
+		services.UpdateBlogView(id)
 		templ.Handler(blog).ServeHTTP(w, r)
 	})
 }

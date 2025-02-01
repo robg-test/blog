@@ -7,12 +7,14 @@ services:
       - KEY_PATH=/app/privkey.pem
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - DATABASE_URL=sqlite:///app/blog.db
     image: bob-productions.dev/blog:v1.0.0
     ports:
       - "443:443"
     volumes:
       - ${CERT_PATH}:/app/fullchain.pem
       - ${KEY_PATH}:/app/privkey.pem
+      - blog-db:/app
     depends_on:
       - redis
 
@@ -20,3 +22,14 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
+  sqlite:
+    image: nouchka/sqlite3
+    container_name: sqlite_db
+    volumes:
+      - ./data:/data
+    command: sqlite3 /data/my_database.db
+    restart: always
+volumes:
+  blog-db:
+    driver: local
+
