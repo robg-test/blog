@@ -5,8 +5,12 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
+templ metaControlAndChoice() {
+	<meta/>
+}
+
 templ ControlAndChoice(theme string, views int) {
-	@pages.BlogPage("Control and choice", theme, views) {
+	@pages.BlogPage("Control and choice", theme, views, metaControlAndChoice()) {
 		<div>
 			<figure>
 				<h1>Weekly Stoic - Control & Change</h1>

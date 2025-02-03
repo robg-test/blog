@@ -5,8 +5,12 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
+templ toBeSteadyMeta() {
+	<meta/>
+}
+
 templ ToBeSteady(theme string, views int) {
-	@pages.BlogPage("To Be Unsteady & Steady", theme, views) {
+	@pages.BlogPage("To Be Unsteady & Steady", theme, views, toBeSteadyMeta()) {
 		<div>
 			<figure>
 				<h1>Weekly Stoic - To Be Steady and Unsteady</h1>

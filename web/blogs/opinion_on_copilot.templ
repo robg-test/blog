@@ -5,8 +5,12 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
+templ metaIsCopilotADud() {
+	<meta/>
+}
+
 templ IsCopilotADud(theme string, views int) {
-	@pages.BlogPage("AI Auto-complete, a bad implementation?", theme, views) {
+	@pages.BlogPage("AI Auto-complete, a bad implementation?", theme, views, metaIsCopilotADud()) {
 		<div>
 			<figure>
 				<h1>AI Code Completion, a bad implementation?</h1>

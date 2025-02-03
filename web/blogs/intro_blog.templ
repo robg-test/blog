@@ -5,8 +5,11 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
+templ metaIntro() {
+}
+
 templ BlogIntro(theme string, views int) {
-	@pages.BlogPage("An introduction to Bob", theme, views) {
+	@pages.BlogPage("An introduction to Bob", theme, views, metaIntro()) {
 		<figure>
 			<h1>Who is the Sweaty Fox?</h1>
 			@components.BlogTimeCaption("2")
