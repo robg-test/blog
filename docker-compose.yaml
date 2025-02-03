@@ -22,13 +22,6 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
-  sqlite:
-    image: nouchka/sqlite3
-    container_name: sqlite_db
-    volumes:
-      - ./data:/data
-    command: sqlite3 /data/my_database.db
-    restart: always
 volumes:
   blog-db:
     driver: local
