@@ -7,7 +7,7 @@ services:
       - KEY_PATH=/app/privkey.pem
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - DATABASE_URL=sqlite:///app/blog.db
+      - TURSO_DATABASE
     image: bob-productions.dev/blog:v1.0.0
     ports:
       - "443:443"
@@ -32,4 +32,3 @@ services:
 volumes:
   blog-db:
     driver: local
-
