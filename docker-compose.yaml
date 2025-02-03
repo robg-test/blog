@@ -7,9 +7,12 @@ services:
       - KEY_PATH=/app/privkey.pem
       - REDIS_HOST=redis
       - TURSO_DATABASE
-    image: bob-productions.dev/blog:v1.0.2
+    image: bob-productions.dev/blog:v1.0.0
     ports:
       - "443:443"
+    volumes:
+      - ${CERT_PATH}:/app/fullchain.pem
+      - ${KEY_PATH}:/app/privkey.pem
     networks:
       - blog-network
     depends_on:
@@ -18,7 +21,7 @@ services:
   redis:
     image: redis:alpine
     ports:
-      - "6389:6379"
+      - "6379:6379"
     networks:
       - blog-network
 
