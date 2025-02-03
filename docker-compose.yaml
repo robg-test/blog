@@ -6,7 +6,6 @@ services:
       - CERT_PATH=/app/fullchain.pem
       - KEY_PATH=/app/privkey.pem
       - REDIS_HOST=redis
-      - REDIS_PORT=6379
       - TURSO_DATABASE
     image: bob-productions.dev/blog:v1.0.0
     ports:

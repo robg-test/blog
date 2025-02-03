@@ -14,7 +14,7 @@ import (
 var UserSessionManager *scs.SessionManager
 
 func getRedisURI() string {
-	redisURI := os.Getenv("REDIS_URI")
+	redisURI := os.Getenv("REDIS_HOST")
 	if redisURI == "" {
 		redisURI = "localhost"
 	}
@@ -22,7 +22,7 @@ func getRedisURI() string {
 }
 
 func SetupSessionManager() error {
-	log.Println("Setting up session manager")
+	log.Println("Setting up session manager on host" + getRedisURI())
 
 	opt, err := redis.ParseURL("redis://" + getRedisURI() + ":6379")
 	if err != nil {
