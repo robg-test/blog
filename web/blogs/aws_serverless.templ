@@ -6,10 +6,20 @@ import (
 )
 
 templ metaAWSServerlessBlog() {
+	<meta name="description" content="A Guide into setting up performant cloud architecture: AWS Lambdas"/>
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="https://blog.bob-productions.dev/blog/2"/>
+	<meta property="og:type" content="website"/>
 	<meta property="og:title" content="Performance Guide: AWS Lambdas"/>
 	<meta property="og:description" content="A Guide into setting up performant cloud architecture: AWS Lambdas"/>
-	<meta property="og:image:secure_url" content="https://blog.bob-productions.dev/images/AWS.png"/>
-	<meta property="og:url" content="https://blog.bob-productions.dev/blog/2"/>
+	<meta property="og:image" content="https://blog.bob-productions.dev/images/AWS.png"/>
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta property="twitter:domain" content="blog.bob-productions.dev"/>
+	<meta property="twitter:url" content="https://blog.bob-productions.dev/blog/2"/>
+	<meta name="twitter:title" content="Performance Guide: AWS Lambdas"/>
+	<meta name="twitter:description" content="A Guide into setting up performant cloud architecture: AWS Lambdas"/>
+	<meta name="twitter:image" content="https://blog.bob-productions.dev/images/AWS.png"/>
 }
 
 templ AWSServerlessBlog(theme string, views int) {
