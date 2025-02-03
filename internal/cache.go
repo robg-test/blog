@@ -22,7 +22,7 @@ func getRedisURI() string {
 }
 
 func SetupSessionManager() error {
-	log.Println("Setting up session manager on host" + getRedisURI())
+	log.Println("Setting up session manager on host: " + getRedisURI())
 
 	opt, err := redis.ParseURL("redis://" + getRedisURI() + ":6379")
 	if err != nil {
