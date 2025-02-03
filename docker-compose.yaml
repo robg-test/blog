@@ -7,7 +7,7 @@ services:
       - KEY_PATH=/app/privkey.pem
       - REDIS_HOST=redis
       - TURSO_DATABASE
-    image: bob-productions.dev/blog:v1.0.0
+    image: bob-productions.dev/blog:v1.0.2
     ports:
       - "443:443"
     volumes:
