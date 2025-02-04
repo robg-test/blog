@@ -1,12 +1,23 @@
 package blogs
 
 import (
+	"github.com/robgtest/blog/internal/models"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
+func metaDataIsCopilotADud() models.BlogMeta {
+	blog := models.BlogMeta{
+		Description: "An opinion piece on what one could consider a disastrous implementation.",
+		Url:         "https://blog.bob-productions.dev/blog/2",
+		Title:       "The AI Auto-complete headache",
+		ImageUri:    "https://blog.bob-productions.dev/images/copilot.webp",
+	}
+	return blog
+}
+
 templ metaIsCopilotADud() {
-	<meta/>
+	@components.MetaData(metaDataIsCopilotADud())
 }
 
 templ IsCopilotADud(theme string, views int) {

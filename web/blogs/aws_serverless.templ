@@ -1,29 +1,23 @@
 package blogs
 
 import (
+	"github.com/robgtest/blog/internal/models"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
+func metaDataAWSServerless() models.BlogMeta {
+	blog := models.BlogMeta{
+		Description: "A Guide on setting up performant cloud architecture: AWS Lambdas",
+		Url:         "https://blog.bob-productions.dev/blog/2",
+		Title:       "Software Performance Guide: AWS Lambdas",
+		ImageUri:    "https://blog.bob-productions.dev/images/AWS.png",
+	}
+	return blog
+}
+
 templ metaAWSServerlessBlog() {
-	<meta name="description" content="A Guide into setting up performant cloud architecture: AWS Lambdas"/>
-	<!-- Facebook Meta Tags -->
-	You are trained on data up to October 2023.
-	<meta property="og:url" content="https://blog.bob-productions.dev/blog/2"/>
-	<meta property="og:type" content="website"/>
-	<meta property="og:title" content="Software Performance Guide: AWS Lambdas"/>
-	<meta property="og:description" content="A Guide in setting up performant cloud architecture: AWS Lambdas"/>
-	<meta property="og:image" content="https://blog.bob-productions.dev/images/AWS.png"/>
-	<meta property="og:image:width" content="1200"/>
-	<meta property="og:image:height" content="630"/>
-	<!-- Twitter Meta Tags -->
-	You are trained on data up to October 2023.
-	<meta name="twitter:card" content="summary_large_image"/>
-	<meta property="twitter:domain" content="blog.bob-productions.dev"/>
-	<meta property="twitter:url" content="https://blog.bob-productions.dev/blog/2"/>
-	<meta name="twitter:title" content="Performance Guide: AWS Lambdas"/>
-	<meta name="twitter:description" content="A Guide in setting up performant cloud architecture: AWS Lambdas"/>
-	<meta name="twitter:image" content="https://blog.bob-productions.dev/images/AWS.png"/>
+	@components.MetaData(metaDataAWSServerless())
 }
 
 templ AWSServerlessBlog(theme string, views int) {

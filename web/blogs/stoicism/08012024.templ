@@ -1,16 +1,27 @@
 package stoicism 
 
 import (
+	"github.com/robgtest/blog/internal/models"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
-templ toBeSteadyMeta() {
-	<meta/>
+func metaDataToBeSteady() models.BlogMeta {
+	blog := models.BlogMeta{
+		Description: "Weekly Stoic: To be Steady & Unsteady",
+		Url:         "https://blog.bob-productions.dev/blog/5",
+		Title:       "Quick testing wellbeing tidbits",
+		ImageUri:    "https://blog.bob-productions.dev/images/stoic2.jpg",
+	}
+	return blog
+}
+
+templ metaToBeSteady() {
+	@components.MetaData(metaDataToBeSteady())
 }
 
 templ ToBeSteady(theme string, views int) {
-	@pages.BlogPage("To Be Unsteady & Steady", theme, views, toBeSteadyMeta()) {
+	@pages.BlogPage("To Be Unsteady & Steady", theme, views, metaToBeSteady()) {
 		<div>
 			<figure>
 				<h1>Weekly Stoic - To Be Steady and Unsteady</h1>

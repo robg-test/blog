@@ -1,12 +1,23 @@
 package stoicism 
 
 import (
+	"github.com/robgtest/blog/internal/models"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
+func metaDataControlAndChoice() models.BlogMeta {
+	blog := models.BlogMeta{
+		Description: "Weekly Stoic: Control & Choice",
+		Url:         "https://blog.bob-productions.dev/blog/3",
+		Title:       "Quick testing wellbeing tidbits",
+		ImageUri:    "https://blog.bob-productions.dev/images/stoic1.jpeg",
+	}
+	return blog
+}
+
 templ metaControlAndChoice() {
-	<meta/>
+	@components.MetaData(metaDataControlAndChoice())
 }
 
 templ ControlAndChoice(theme string, views int) {

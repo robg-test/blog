@@ -1,11 +1,23 @@
 package blogs
 
 import (
+	"github.com/robgtest/blog/internal/models"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
+func metaDataIntro() models.BlogMeta {
+	blog := models.BlogMeta{
+		Description: "Who is the mysterious sweaty fox",
+		Url:         "https://blog.bob-productions.dev/blog/1",
+		Title:       "An Introduction to Bob Productions",
+		ImageUri:    "https://blog.bob-productions.dev/images/Sweat.webp",
+	}
+	return blog
+}
+
 templ metaIntro() {
+	@components.MetaData(metaDataIntro())
 }
 
 templ BlogIntro(theme string, views int) {
