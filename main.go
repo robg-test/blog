@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 
 	"github.com/a-h/templ"
@@ -135,33 +134,42 @@ func setupBlogHandler(router *mux.Router) {
 		theme := internal.GetMessage("theme", r)
 		log.Printf("Got theme: %v", theme)
 		log.Println("Blog Requested")
-		id, err := strconv.Atoi(vars["id"])
-		if err != nil {
-			// Handle error
-			return
-		}
+		id := vars["id"]
 
-		views, err := services.GetBlogView(id)
-		if err != nil {
-			log.Printf("Error getting blog view count: %v", err)
-			return
-		}
-
+		blog_view := 10000
 		var blog templ.Component
 		switch id {
-		case 1:
+		case "intro":
+			blog_view = 1
+			views := handleBlogViews(blog_view)
 			blog = blogs.BlogIntro(theme, views)
-		case 2:
+		case "serverless":
+			blog_view = 2
+			views := handleBlogViews(blog_view)
 			blog = blogs.AWSServerlessBlog(theme, views)
-		case 3:
+		case "control-and-choice":
+			blog_view = 3
+			views := handleBlogViews(blog_view)
 			blog = stoicism.ControlAndChoice(theme, views)
-		case 4:
+		case "to-be-steady":
+			blog_view = 4
+			views := handleBlogViews(blog_view)
 			blog = stoicism.ToBeSteady(theme, views)
-		case 5:
+		case "copilot-a-dud":
+			blog_view = 5
+			views := handleBlogViews(blog_view)
 			blog = blogs.IsCopilotADud(theme, views)
 		}
 
-		services.UpdateBlogView(id)
+		services.UpdateBlogView(blog_view)
 		templ.Handler(blog).ServeHTTP(w, r)
 	})
+}
+
+func handleBlogViews(view int) int {
+	views, err := services.GetBlogView(view)
+	if err != nil {
+		fmt.Println("Error getting blog views")
+	}
+	return views
 }
