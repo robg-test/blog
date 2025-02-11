@@ -1,29 +1,19 @@
 package blogs
 
 import (
-	"github.com/robgtest/blog/internal/models"
+	"github.com/robgtest/blog/internal/static"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
-func metaDataIntro() models.BlogMeta {
-	blog := models.BlogMeta{
-		Description: "Who is the mysterious sweaty fox",
-		Url:         "https://blog.bob-productions.dev/blog/1",
-		Title:       "An Introduction to Bob Productions",
-		ImageUri:    "https://blog.bob-productions.dev/images/Sweat.webp",
-	}
-	return blog
-}
-
 templ metaIntro() {
-	@components.MetaData(metaDataIntro())
+	@components.MetaData(static.IntroData)
 }
 
 templ BlogIntro(theme string, views int) {
-	@pages.BlogPage("An introduction to Bob", theme, views, metaIntro()) {
+	@pages.BlogPage(theme, views, metaIntro()) {
 		<figure>
-			<h1>Who is the Sweaty Fox?</h1>
+			<h1>{ static.IntroData.Title }</h1>
 			@components.BlogTimeCaption("2")
 		</figure>
 		<p>Welcome to my blog. From my work as a QA, I've often received advice such as:</p>
@@ -44,7 +34,7 @@ templ BlogIntro(theme string, views int) {
 			This blog is created using Go templ and is open source. The stack of this blog images
 			<ul>
 				<li><strong>Go:</strong> For the servery stuff</li>
-				<li><strong><a href="https://templ.guide">Templ</a>: </strong> For the HTML stuff - Templ Guide</li>
+				<li><strong><a href="https://templ.guide">Templ</a>: </strong> For the HTML stuff</li>
 				<li><strong><a href="https://turos.tech">Turso</a>: </strong> For the storage stuff</li>
 				<li><strong><a href="https://redis.io">Redis</a>: </strong> For some more storage stuff</li>
 				<li><strong><a href="https://daisyui.com">TailwindCSS</a>: </strong> For the UI</li>

@@ -1,30 +1,20 @@
 package blogs
 
 import (
-	"github.com/robgtest/blog/internal/models"
+	"github.com/robgtest/blog/internal/static"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
-func metaDataIsCopilotADud() models.BlogMeta {
-	blog := models.BlogMeta{
-		Description: "An opinion piece on what one could consider a disastrous implementation.",
-		Url:         "https://blog.bob-productions.dev/blog/2",
-		Title:       "The AI Auto-complete headache",
-		ImageUri:    "https://blog.bob-productions.dev/images/copilot.webp",
-	}
-	return blog
-}
-
 templ metaIsCopilotADud() {
-	@components.MetaData(metaDataIsCopilotADud())
+	@components.MetaData(static.IsCopilotADudData)
 }
 
 templ IsCopilotADud(theme string, views int) {
-	@pages.BlogPage("AI Auto-complete, a bad implementation?", theme, views, metaIsCopilotADud()) {
+	@pages.BlogPage(theme, views, metaIsCopilotADud()) {
 		<div>
 			<figure>
-				<h1>AI Code Completion, a bad implementation?</h1>
+				<h1>{ static.IsCopilotADudData.Title }</h1>
 				@components.BlogTimeCaption("7")
 			</figure>
 			<p>AI is causing a big transformation in the software development field in practically all areas, there's no doubt about that, with the success of LLM these tools are no doubt great for productivity.</p>

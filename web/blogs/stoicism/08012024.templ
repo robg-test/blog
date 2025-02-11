@@ -1,30 +1,20 @@
 package stoicism 
 
 import (
-	"github.com/robgtest/blog/internal/models"
+	"github.com/robgtest/blog/internal/static"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
-func metaDataToBeSteady() models.BlogMeta {
-	blog := models.BlogMeta{
-		Description: "Weekly Stoic: To be Steady & Unsteady",
-		Url:         "https://blog.bob-productions.dev/blog/5",
-		Title:       "Quick testing wellbeing tidbits",
-		ImageUri:    "https://blog.bob-productions.dev/images/stoic2.jpg",
-	}
-	return blog
-}
-
 templ metaToBeSteady() {
-	@components.MetaData(metaDataToBeSteady())
+	@components.MetaData(static.ToBeSteadyData)
 }
 
 templ ToBeSteady(theme string, views int) {
-	@pages.BlogPage("To Be Unsteady & Steady", theme, views, metaToBeSteady()) {
+	@pages.BlogPage(theme, views, metaToBeSteady()) {
 		<div>
 			<figure>
-				<h1>Weekly Stoic - To Be Steady and Unsteady</h1>
+				<h1>{ static.ToBeSteadyData.Title }</h1>
 				@components.BlogTimeCaption("1")
 			</figure>
 			<p>As I reflect on the first week back at work, I'm getting used to all of the negativities that come with progress. No matter what happens expression of emotion is important, good and bad assuming they are justifiable.</p>

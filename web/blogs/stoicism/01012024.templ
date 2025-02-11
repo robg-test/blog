@@ -1,30 +1,20 @@
 package stoicism 
 
 import (
-	"github.com/robgtest/blog/internal/models"
+	"github.com/robgtest/blog/internal/static"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
-func metaDataControlAndChoice() models.BlogMeta {
-	blog := models.BlogMeta{
-		Description: "Weekly Stoic: Control & Choice",
-		Url:         "https://blog.bob-productions.dev/blog/3",
-		Title:       "Quick testing wellbeing tidbits",
-		ImageUri:    "https://blog.bob-productions.dev/images/stoic1.jpeg",
-	}
-	return blog
-}
-
 templ metaControlAndChoice() {
-	@components.MetaData(metaDataControlAndChoice())
+	@components.MetaData(static.ControlAndChoiceData)
 }
 
 templ ControlAndChoice(theme string, views int) {
-	@pages.BlogPage("Control and choice", theme, views, metaControlAndChoice()) {
+	@pages.BlogPage(theme, views, metaControlAndChoice()) {
 		<div>
 			<figure>
-				<h1>Weekly Stoic - Control & Change</h1>
+				<h1>{ static.ControlAndChoiceData.Title }</h1>
 				@components.BlogTimeCaption("1")
 			</figure>
 			<p>Deadlines as testers are as you imagine, always tremeendously difficult part of the job, Much research has been put into QA not to be the final hurdle when things get tight but it's a necessary part of working software.</p>

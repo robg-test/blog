@@ -1,34 +1,36 @@
 package components
 
+import "github.com/robgtest/blog/internal/static"
+
 templ BlogLibrary() {
 	<div class="w-3/4 mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-		@Card("Intro: The Sweatiest Fox",
-			"Ere, what's this then, a new blog. That's a bit shite.",
+		@Card(static.IntroData.Title,
+			static.IntroData.Description,
 			"/images/Sweat.webp",
 			"1",
 			"2",
 			"Other")
-		@Card("Serverless Performance: Lambdas",
-			"A guide in demystifying the servers beind serverless architecture.",
+		@Card(static.AWSServerlessData.Title,
+			static.AWSServerlessData.Description,
 			"/images/AWS-Meta.png",
 			"2",
 			"10",
 			"Guide")
-		@Card("Stoic Tester: Control & Choice",
-			"Stoicsm for the modern workplace: Control & Choice.",
+		@Card(static.ControlAndChoiceData.Title,
+			static.ControlAndChoiceData.Description,
 			"/images/stoic1.jpeg",
 			"3",
 			"1",
 			"Wellbeing")
-		@Card("AI Auto-complete: A bad implementation",
-			"Opinions on the implementation of AI for development.",
+		@Card(static.IsCopilotADudData.Title,
+			static.IsCopilotADudData.Description,
 			"/images/copilot.webp",
 			"5",
 			"7",
 			"Opinion",
 		)
-		@Card("Stoic Tester: To Be Unsteady & Steady",
-			"Stoicsm for the modern workplace: To be Unsteady and Steady.",
+		@Card(static.ToBeSteadyData.Title,
+			static.ToBeSteadyData.Description,
 			"/images/stoic2.jpg",
 			"4",
 			"1",

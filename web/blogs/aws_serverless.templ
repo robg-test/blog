@@ -1,29 +1,19 @@
 package blogs
 
 import (
-	"github.com/robgtest/blog/internal/models"
+	"github.com/robgtest/blog/internal/static"
 	"github.com/robgtest/blog/web/components"
 	"github.com/robgtest/blog/web/pages"
 )
 
-func metaDataAWSServerless() models.BlogMeta {
-	blog := models.BlogMeta{
-		Description: "A Guide on setting up performant cloud architecture: AWS Lambdas",
-		Url:         "https://blog.bob-productions.dev/blog/2",
-		Title:       "Software Performance Guide: AWS Lambdas",
-		ImageUri:    "https://blog.bob-productions.dev/images/AWS-Meta.png",
-	}
-	return blog
-}
-
 templ metaAWSServerlessBlog() {
-	@components.MetaData(metaDataAWSServerless())
+	@components.MetaData(static.AWSServerlessData)
 }
 
 templ AWSServerlessBlog(theme string, views int) {
-	@pages.BlogPage("A guide to serverless performance testing and tuning", theme, views, metaAWSServerlessBlog()) {
+	@pages.BlogPage(theme, views, metaAWSServerlessBlog()) {
 		<figure>
-			<h1>A Performance Testers Guide to AWS Lambdas</h1>
+			<h1>{ static.AWSServerlessData.Title }</h1>
 			@components.BlogTimeCaption("10")
 		</figure>
 		<p>I'm often finding myself performance testing cloud software as of recently and a pet peeve of mine is when a miracle series of tools designed to take away server management and allows endless scaling implying you can bypass a lot of the things that make servers, well servers.</p>
