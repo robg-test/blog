@@ -10,8 +10,8 @@ templ metaIsCopilotADud() {
 	@components.MetaData(static.IsCopilotADudData)
 }
 
-templ IsCopilotADud(theme string, views int) {
-	@pages.BlogPage(theme, views, metaIsCopilotADud()) {
+templ IsCopilotADud(theme string) {
+	@pages.BlogPage(theme, metaIsCopilotADud()) {
 		<div>
 			<figure>
 				<h1>{ static.IsCopilotADudData.Title }</h1>

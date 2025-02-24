@@ -10,8 +10,8 @@ templ metaToBeSteady() {
 	@components.MetaData(static.ToBeSteadyData)
 }
 
-templ ToBeSteady(theme string, views int) {
-	@pages.BlogPage(theme, views, metaToBeSteady()) {
+templ ToBeSteady(theme string) {
+	@pages.BlogPage(theme, metaToBeSteady()) {
 		<div>
 			<figure>
 				<h1>{ static.ToBeSteadyData.Title }</h1>

@@ -10,8 +10,8 @@ templ metaControlAndChoice() {
 	@components.MetaData(static.ControlAndChoiceData)
 }
 
-templ ControlAndChoice(theme string, views int) {
-	@pages.BlogPage(theme, views, metaControlAndChoice()) {
+templ ControlAndChoice(theme string) {
+	@pages.BlogPage(theme, metaControlAndChoice()) {
 		<div>
 			<figure>
 				<h1>{ static.ControlAndChoiceData.Title }</h1>
