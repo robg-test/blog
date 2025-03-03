@@ -7,7 +7,7 @@ services:
       - KEY_PATH=/app/privkey.pem
       - REDIS_HOST=redis
       - TURSO_DATABASE
-    image: bob-productions.dev/blog:v1.0.0
+    image: ghcr.io/robg-test/blog:latest
     ports:
       - "443:443"
     volumes:
@@ -28,4 +28,3 @@ services:
 networks:
   blog-network:
     driver: bridge
-

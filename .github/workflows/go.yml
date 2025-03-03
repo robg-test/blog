@@ -5,27 +5,49 @@ name: Go
 
 on:
   push:
-    branches: [ "blog" ]
-  pull_request:
-    branches: [ "blog" ]
+    branches: ["main"]
+
+permissions:
+  contents: write
+  packages: write
 
 jobs:
-
-  build:
+  run_and_deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.23'
+      - uses: actions/checkout@v4
 
-    - name: Templ
-      run: go install github.com/a-h/templ/cmd/templ@latest
+      - name: Build Docker Image
+        run: |
+          docker build -t blog:latest .
 
-    - name: Templ Generate
-      run: templ generate
+      - name: Push Docker Image
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker tag blog:latest ghcr.io/${{ github.repository_owner }}/blog:latest
+          docker push ghcr.io/${{ github.repository_owner }}/blog:latest
 
-    - name: Build
-      run: go build
+      - name: Deploy to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: 46.101.95.175
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "docker-compose.yaml"
+          target: "/root/"
+
+      - name: Pull latest Docker image and run Docker Compose
+        uses: appleboy/ssh-action@master
+        with:
+          host: 46.101.95.175
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+            export CERT_PATH="${{ secrets.CERT_PATH }}"
+            export KEY_PATH="${{ secrets.KEY_PATH }}"
+            export ENV="production"
+            export TURSO_DATABASE="${{ secrets.TURSO_DATABASE }}"
+            docker compose pull
+            docker compose down
+            docker compose up -d
