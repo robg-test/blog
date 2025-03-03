@@ -143,24 +143,22 @@ templ AWSServerlessBlog(theme string) {
 			And given that the results are often SQL you can do some pretty nifty aggregations too!
 			<a href="https://steampipe.io/">Steampipe</a> you can write queries like below to pull out all the lambda configurations in a view:
 			<div class="code-wrapper">
-				<pre class="language-sql">
-					<code class="language-sql">
-						<span class="token keyword">SELECT</span>
-						<span class="token plain">name,</span>
-						<br/>
-						<span class="token plain">runtime,</span>
-						<br/>
-						<span class="token plain">handler,</span>
-						<br/>
-						<span class="token plain">architectures</span>
-						<br/>
-						<span class="token keyword">FROM</span>
-						<span class="token plain">aws_lambda_function;</span>
-					</code>
-				</pre>
+				@codeblock()
 			</div>
 		</p>
 		<h2 id="conclusion">In Conclusion</h2>
 		<p>AWS Lambdas are not a miracle solution to the server maintenance problem, there's a whole ton of thought and configuration required. So when using serverless beware!</p>
 	}
+}
+
+templ codeblock() {
+	<pre class="language-sql">
+		<code>
+			{ `SELECT lf.name, 
+      lf.memory_size, 
+      lf.timeout, 
+      lf.reserved_concurrent_executions 
+FROM aws.aws_lambda_function as lf` }
+		</code>
+	</pre>
 }
