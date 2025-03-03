@@ -3150,7 +3150,7 @@ html {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-pre[class*="language-" ],
+pre[class*="language-"],
 code[class*="language-"] {
   white-space: normal;
   overflow: auto;
@@ -3184,3 +3184,5 @@ code[class*="language-"] {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+

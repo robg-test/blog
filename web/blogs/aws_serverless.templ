@@ -133,30 +133,32 @@ templ AWSServerlessBlog(theme string) {
 		<p>No setup required, want proof of good performance just send a link to this, it makes assessing performance easy. (And one of the reasons to use serverless!)</p>
 		<figure>
 			<img src="../../images/dashboard.png"/>
-			<figcaption style="display: flex; align-items: center;">
-				Credit where credit is due; good work AWS
-			</figcaption>
-		</figure>
-		<h3 id="steampipe">Steampipe</h3>
-		<p>
-			I've been using Steampipe recently, another great tool to look at. You can query lambdas individually for there statistics and with larger AWS estates can more easily spot misconfigured lambdas. 
-			And given that the results are often SQL you can do some pretty nifty aggregations too!
-			<a href="https://steampipe.io/">Steampipe</a> you can write queries like below to pull out all the lambda configurations in a view:
-			@codeblock()
-		</p>
-		<h2 id="conclusion">In Conclusion</h2>
-		<p>AWS Lambdas are not a miracle solution to the server maintenance problem, there's a whole ton of thought and configuration required. So when using serverless beware!</p>
-	}
-}
+        <figcaption style="display: flex; align-items: center;">
+          Credit where credit is due; good work AWS
+        </figcaption>
+      </figure>
+      <h3 id="steampipe">Steampipe</h3>
+      <p>
+        I've been using Steampipe recently, another great tool to look at. You can query lambdas individually for there statistics and with larger AWS estates can more easily spot misconfigured lambdas. 
+        And given that the results are often SQL you can do some pretty nifty aggregations too!
+        <a href="https://steampipe.io/">Steampipe</a> you can write queries like below to pull out all the lambda configurations in a view:
+        @codeblock()
+      </p>
+      <h2 id="conclusion">In Conclusion</h2>
+      <p>AWS Lambdas are not a miracle solution to the server maintenance problem, there's a whole ton of thought and configuration required. So when using serverless beware!</p>
+    }
+  }
 
-templ codeblock() {
-	<pre class="language-sql">
-		<code>
-			{ `SELECT name,
+  templ codeblock() {
+    <div class="m">
+		<pre class="language-sql">
+			<code>
+				{ `SELECT name,
        memory_size,
        timeout
 FROM aws_lambda_function
 ` }
-		</code>
-	</pre>
+			</code>
+		</pre>
+	</div>
 }
