@@ -28,7 +28,7 @@ var ToBeSteadyData = models.BlogMeta{
 }
 
 var AWSServerlessData = models.BlogMeta{
-	Description: "A Guide for performant cloud architecture: AWS Lambdas",
+	Description: "Achieving performant cloud architecture: AWS Lambdas",
 	Url:         uri + "blog/serverless",
 	Title:       "Software Performance Guide: AWS Lambdas",
 	ImageUri:    uri + "images/AWS-Meta.png",
