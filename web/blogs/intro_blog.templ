@@ -10,8 +10,8 @@ templ metaIntro() {
 	@components.MetaData(static.IntroData)
 }
 
-templ BlogIntro(theme string, views int) {
-	@pages.BlogPage(theme, views, metaIntro()) {
+templ BlogIntro(theme string) {
+	@pages.BlogPage(theme, metaIntro()) {
 		<figure>
 			<h1>{ static.IntroData.Title }</h1>
 			@components.BlogTimeCaption("2")

@@ -10,8 +10,8 @@ templ metaAWSServerlessBlog() {
 	@components.MetaData(static.AWSServerlessData)
 }
 
-templ AWSServerlessBlog(theme string, views int) {
-	@pages.BlogPage(theme, views, metaAWSServerlessBlog()) {
+templ AWSServerlessBlog(theme string) {
+	@pages.BlogPage(theme, metaAWSServerlessBlog()) {
 		<figure>
 			<h1>{ static.AWSServerlessData.Title }</h1>
 			@components.BlogTimeCaption("10")
@@ -23,13 +23,13 @@ templ AWSServerlessBlog(theme string, views int) {
 				<li>
 					<a href="#howtotreat">Introduction</a>
 					<ul>
-						<li><a href="lambdas">Lambdas</a></li>
+						<li><a href="#lambdas">Lambdas</a></li>
 					</ul>
 				</li>
 				<li>
 					<a href="#configuration">Configuring Lambdas</a>
 					<ul><li><a href="#memory">Memory</a></li></ul>
-					<ul><li><a href="#timeouts">Timeouts</a></li></ul>
+					<ul><li><a href="#timeout">Timeouts</a></li></ul>
 					<ul><li><a href="#concurrency">Concurrency</a></li></ul>
 				</li>
 				<li>

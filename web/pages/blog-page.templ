@@ -2,7 +2,7 @@ package pages
 
 import "github.com/robgtest/blog/web/components"
 
-templ BlogPage(theme string, views int, meta templ.Component) {
+templ BlogPage(theme string, meta templ.Component) {
 	<html data-theme={ theme }>
 		<head>
 			<script src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@ templ BlogPage(theme string, views int, meta templ.Component) {
 							<div class="prose">
 								@components.Breadcrumb()
 								{ children... }
-								@components.ArticleFooter(views)
+								<br/>
 							</div>
 						</div>
 					</div>

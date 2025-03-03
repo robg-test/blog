@@ -141,24 +141,19 @@ func setupBlogHandler(router *mux.Router) {
 		switch id {
 		case "intro":
 			blog_view = 1
-			views := handleBlogViews(blog_view)
-			blog = blogs.BlogIntro(theme, views)
+			blog = blogs.BlogIntro(theme)
 		case "serverless":
 			blog_view = 2
-			views := handleBlogViews(blog_view)
-			blog = blogs.AWSServerlessBlog(theme, views)
+			blog = blogs.AWSServerlessBlog(theme)
 		case "control-and-choice":
 			blog_view = 3
-			views := handleBlogViews(blog_view)
-			blog = stoicism.ControlAndChoice(theme, views)
+			blog = stoicism.ControlAndChoice(theme)
 		case "to-be-steady":
 			blog_view = 4
-			views := handleBlogViews(blog_view)
-			blog = stoicism.ToBeSteady(theme, views)
+			blog = stoicism.ToBeSteady(theme)
 		case "copilot-a-dud":
 			blog_view = 5
-			views := handleBlogViews(blog_view)
-			blog = blogs.IsCopilotADud(theme, views)
+			blog = blogs.IsCopilotADud(theme)
 		}
 
 		services.UpdateBlogView(blog_view)
