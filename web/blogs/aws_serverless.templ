@@ -142,9 +142,7 @@ templ AWSServerlessBlog(theme string) {
 			I've been using Steampipe recently, another great tool to look at. You can query lambdas individually for there statistics and with larger AWS estates can more easily spot misconfigured lambdas. 
 			And given that the results are often SQL you can do some pretty nifty aggregations too!
 			<a href="https://steampipe.io/">Steampipe</a> you can write queries like below to pull out all the lambda configurations in a view:
-			<div class="code-wrapper">
-				@codeblock()
-			</div>
+			@codeblock()
 		</p>
 		<h2 id="conclusion">In Conclusion</h2>
 		<p>AWS Lambdas are not a miracle solution to the server maintenance problem, there's a whole ton of thought and configuration required. So when using serverless beware!</p>
@@ -154,11 +152,11 @@ templ AWSServerlessBlog(theme string) {
 templ codeblock() {
 	<pre class="language-sql">
 		<code>
-			{ `SELECT lf.name, 
-      lf.memory_size, 
-      lf.timeout, 
-      lf.reserved_concurrent_executions 
-FROM aws.aws_lambda_function as lf` }
+			{ `SELECT name,
+       memory_size,
+       timeout
+FROM aws_lambda_function
+` }
 		</code>
 	</pre>
 }
