@@ -31,7 +31,7 @@ var AWSServerlessData = models.BlogMeta{
 	Description: "Achieving performant cloud architecture: AWS Lambdas",
 	Url:         uri + "blog/serverless",
 	Title:       "Software Performance Guide: AWS Lambdas",
-	ImageUri:    uri + "images/AWS-Meta.png",
+	ImageUri:    uri + "images/lambda-serverless/AWS-Meta.png",
 }
 
 var IntroData = models.BlogMeta{
@@ -45,5 +45,5 @@ var IsCopilotADudData = models.BlogMeta{
 	Description: "An opinion piece on what one could consider a disastrous implementation.",
 	Url:         uri + "blog/copilot-a-dud",
 	Title:       "The AI Auto-complete Headache",
-	ImageUri:    uri + "images/copilot.webp",
+	ImageUri:    uri + "images/copilot/copilot.webp",
 }

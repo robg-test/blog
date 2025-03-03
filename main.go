@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
@@ -79,22 +78,40 @@ func setupStaticHandlers(router *mux.Router, loadableImages []string) {
 	router.HandleFunc("/styles.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./web/static/css/output.css")
 	})
-	router.HandleFunc("/images/{path}", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/images/{path:.*}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		for key, value := range vars {
-			if key == "path" {
-				log.Printf("Loading image: %s", value)
-				for _, image := range loadableImages {
-					if strings.Compare(value, image) == 0 {
-						// process each image
-						log.Println("Presenting Image")
-						http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", image))
-					}
-				}
-			}
+		log.Println(vars)
+		log.Println(loadableImages)
+		if contains(loadableImages, "web/static/images/"+vars["path"]) {
+			log.Println(vars["path"])
+			http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", vars["path"]))
 		}
 	})
 }
+
+func contains(images []string, path string) bool {
+	for _, img := range images {
+		if img == path {
+			return true
+		}
+	}
+	return false
+}
+
+// func findMatchingImage(w http.ResponseWriter *http.Request, loadableImages []string) {
+// 	vars := mux.Vars(r)
+// 	path := vars["path"]
+// 	log.Printf("Loading image: %s", path)
+// 	for _, image := range loadableImages {
+// 		if strings.Compare(path, image) == 0 {
+// 			// process each image
+// 			log.Println("Presenting Image")
+// 			http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", image))
+// 			return
+// 		}
+// 	}
+// 	http.NotFound(w, r)
+// }
 
 func getImagesList() ([]string, error) {
 	directory := "./web/static/images"
@@ -105,13 +122,15 @@ func getImagesList() ([]string, error) {
 			return err
 		}
 		if !d.IsDir() {
-			fileMap = append(fileMap, d.Name())
+			fileMap = append(fileMap, path) // Use path to include subdirectory structure
 		}
+
 		return nil
 	})
 	if err != nil {
 		return nil, err
 	}
+
 	return fileMap, nil
 }
 

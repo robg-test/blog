@@ -53,7 +53,7 @@ templ AWSServerlessBlog(theme string) {
 		<h2 id="howtotreat">Introduction</h2>
 		<p>A common misconception about serverless computing is that it means not using a server at all. In reality, 'serverless' means that you don't <strong>manage</strong> the server; instead, the cloud provider handles it for you. This distinction is crucial as that misconception leads to a whole heap of problems, often times with system performance.</p>
 		<figure>
-			<img class="mx-auto shadow-xl rounded-lg" src="../../images/serverless.png" alt="Not quite serverless" style="width:50%;"/>
+			<img class="mx-auto shadow-xl rounded-lg" src="../../images/lambda-serverless/serverless.png" alt="Not quite serverless" style="width:50%;"/>
 			<figcaption class="mx-auto text-center">Serverless but not AWS Serverless</figcaption>
 		</figure>
 		<p>In my opinion AWS can sometimes be unclear about the details of an offering. I'm not sure for other providers such as Azure functions this remains the same but I presume some of the problems may be shared, This article will cover common pitfalls, how to configure lambdas.</p>
@@ -64,7 +64,7 @@ templ AWSServerlessBlog(theme string) {
 		<p>This is actually the best part of lambdas and where it gets the 'autoscaling' from, the more you call the more lambdas you get!</p>
 		Each Lambda function operates within its own isolated environment, having its own dedicated resources. While it utilizes containerization under the hood, you don't need to worry about the technical specifics—just think of each Lambda as its own independent machine with very limited configuration options
 		<p>Hopefully the diagram conveys the basics</p>
-		<img class="shadow-xl rounded-lg" src="../../images/LambdaBrief.png"/>
+		<img class="shadow-xl rounded-lg" src="../../images/lambda-serverless/LambdaBrief.png"/>
 		<p></p>As you can imagine, hit it too hard and it can lead to 
 		<a href="https://asankha.medium.com/lambda-programming-errors-that-could-cost-you-thousands-of-dollars-a-day-265dfac354f">fairly disastrous results</a>, watching your AWS bill is a real consideration when doing performance testing and a metric you should definitely consider measuring, atleast keeping an eye on it!
 		<h2 id="configuration">Lambda Configuration</h2>
@@ -80,7 +80,7 @@ templ AWSServerlessBlog(theme string) {
 		<p>Oh boy, my pet peeve with AWS lambdas is this - More memory is just more RAM right? No, since this is where the CPU setting is, and that's probably not the only thing. Here lies the equivelant of an Ec2 specification.</p>
 		<p>Honestly if I could give AWS one piece of feedback, it's this. Tell me what CPU I'm getting and a detailed spec of what my runtimes looks like! Maybe it's since it's VCPU No idea!</p>
 		<figure>
-			<img src="../../images/thismuchcpu.png"/>
+			<img src="../../images/lambda-serverless/thismuchcpu.png"/>
 			<figcaption style="display: flex; align-items: center;">
 				A helpful indicator would be nice! 
 			</figcaption>
@@ -132,25 +132,25 @@ templ AWSServerlessBlog(theme string) {
 		<p>The default Lambdas dashboards are great!</p>
 		<p>No setup required, want proof of good performance just send a link to this, it makes assessing performance easy. (And one of the reasons to use serverless!)</p>
 		<figure>
-			<img src="../../images/dashboard.png"/>
-        <figcaption style="display: flex; align-items: center;">
-          Credit where credit is due; good work AWS
-        </figcaption>
-      </figure>
-      <h3 id="steampipe">Steampipe</h3>
-      <p>
-        I've been using Steampipe recently, another great tool to look at. You can query lambdas individually for there statistics and with larger AWS estates can more easily spot misconfigured lambdas. 
-        And given that the results are often SQL you can do some pretty nifty aggregations too!
-        <a href="https://steampipe.io/">Steampipe</a> you can write queries like below to pull out all the lambda configurations in a view:
-        @codeblock()
-      </p>
-      <h2 id="conclusion">In Conclusion</h2>
-      <p>AWS Lambdas are not a miracle solution to the server maintenance problem, there's a whole ton of thought and configuration required. So when using serverless beware!</p>
-    }
-  }
+			<img src="../../images/lambda-serverless/dashboard.png"/>
+			<figcaption style="display: flex; align-items: center;">
+				Credit where credit is due; good work AWS
+			</figcaption>
+		</figure>
+		<h3 id="steampipe">Steampipe</h3>
+		<p>
+			I've been using Steampipe recently, another great tool to look at. You can query lambdas individually for there statistics and with larger AWS estates can more easily spot misconfigured lambdas. 
+			And given that the results are often SQL you can do some pretty nifty aggregations too!
+			<a href="https://steampipe.io/">Steampipe</a> you can write queries like below to pull out all the lambda configurations in a view:
+			@codeblock()
+		</p>
+		<h2 id="conclusion">In Conclusion</h2>
+		<p>AWS Lambdas are not a miracle solution to the server maintenance problem, there's a whole ton of thought and configuration required. So when using serverless beware!</p>
+	}
+}
 
-  templ codeblock() {
-    <div class="m">
+templ codeblock() {
+	<div class="m">
 		<pre class="language-sql">
 			<code>
 				{ `SELECT name,
