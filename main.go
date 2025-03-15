@@ -78,6 +78,12 @@ func setupStaticHandlers(router *mux.Router, loadableImages []string) {
 	router.HandleFunc("/styles.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./web/static/css/output.css")
 	})
+	router.HandleFunc("/prism.css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./web/static/css/prism.css")
+	})
+	router.HandleFunc("/js/prism.js", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./web/static/js/prism.js")
+	})
 	router.HandleFunc("/images/{path:.*}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		log.Println(vars)
