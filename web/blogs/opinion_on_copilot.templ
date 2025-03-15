@@ -14,11 +14,22 @@ templ IsCopilotADud(theme string) {
 	@pages.BlogPage(theme, metaIsCopilotADud()) {
 		<div>
 			<section>
-				<figure>
-					<h1>{ static.IsCopilotADudData.Title }</h1>
-					@components.BlogTimeCaption("7")
-				</figure>
+				<h1>{ static.IsCopilotADudData.Title }</h1>
+				@components.BlogTimeCaption("7")
 				<img class="mx-auto shadow-xl rounded-lg" src="../../images/copilot/skullpilot.png" alt="AI Autocomplete: Symbol of death"/>
+				<nav>
+					<ul>
+						<li><a href="#rise-of-ai-assistants-in-coding">The Rise of AI Assistants in Coding</a></li>
+						<li><a href="#copilot-auto-complete-is-annoying">Copilot Auto-Complete is Annoying</a></li>
+						<li><a href="#new-frameworks-suffer">New Frameworks Suffer</a></li>
+						<li><a href="#copilot-auto-complete-eats-suggestions">Copilot auto-complete eats suggestions</a></li>
+						<li><a href="#it-can-be-wrong">It can be wrong</a></li>
+						<li><a href="#humans-are-born-problem-solvers">Humans are born problem-solvers</a></li>
+						<li><a href="#conclusion">Conclusion</a></li>
+					</ul>
+				</nav>
+			</section>
+			<section>
 				<p>AI is causing a big transformation in the software development field in practically all areas, I can't doubt that, with the success of LLM for development it's no doubt great for productivity.</p>
 				<p>Though as part of the development process tools have been developed that are deemed to speed development up. This is causing an AI boom in the IDE space and with every new invention there are ultimately loads of sucesses and of course failures.</p>
 				<p>
@@ -26,7 +37,9 @@ templ IsCopilotADud(theme string) {
 					No doubt tremendous effort to implement it but in my opinion, it doesn't feel right. It's annoying and it's insulting my intelligence.
 					And the biggest problem? It's not going away.
 				</p>
-				<h2>The Rise of AI Assistants in Coding</h2>
+			</section>
+			<section>
+				<h2 id="rise-of-ai-assistants-in-coding">The Rise of AI Assistants in Coding</h2>
 				<p>
 					AI, for me, reminds me of an ambitious student. When I give it some instruction, whether that be in the form of a direct ask, it can <strong>quickly</strong> trawl a rather large library to find the information needed to formulate an answer.
 					With a somewhat optimistic outlook, it will try to present an answer.
@@ -35,26 +48,26 @@ templ IsCopilotADud(theme string) {
 				<p>Now I want to really focus in on code completion and really speak out why I really think it's a bad idea</p>
 			</section>
 			<section>
-				<h2>Copilot Auto-Complete is Annoying</h2>
+				<h2 id="copilot-auto-complete-is-annoying">Copilot Auto-Complete is Annoying</h2>
 				<p>
 					Okay so my biggest pet peeve with Copilot auto-complete is that I have limits on what I communicate when I don't want it to try and guess, the library it's using may not have a certain book. E.g. I've been using go-templ for this site AI doesnt know about it yet or has limited knowledge.
 					So it's making some very annoying guesses often times based on my own code as to what the solution is, which casues my blood to boil, conveniently this leads to point two.
 				</p>
 			</section>
 			<section>
-				<h2>New Frameworks suffer</h2>
+				<h2 id="new-frameworks-suffer">New Frameworks suffer</h2>
 				<p>
 					IT keeps changing, tools are absolutely no means perfect yet Copilot auto-complete rewards you for sticking to the grain which can be good, well hell I wish that would be the case in some instances but for every bad tool, there's usually a good tool, which Copilot won't know which may disuade people from exploring new tools and new tools getting their time in the limelight
 					<p>Autocomplete exacerbates this problem, by trying to make awful guesses maybe this gets better in time and Copilot wil learn not to try but it drive me <i>insane</i></p>
 				</p>
 			</section>
 			<section>
-				<h2>Copilot auto-complete eats suggestions</h2>
+				<h2 id="copilot-auto-complete-eats-suggestions">Copilot auto-complete eats suggestions</h2>
 				<p>Copilot auto-complete eats several slots of what my IDE can offer me, your LSP is an important tool, which effectively tells you the methods available on objects, what you can do with that array etc.</p>
 				<p>For every suggestion Copilot auto-complete provides, you loose two other things, you miss a potential option on a method you dont see. Is that correct?</p>
 			</section>
 			<section>
-				<h2>It can be wrong</h2>
+				<h2 id="it-can-be-wrong">It can be wrong</h2>
 				<p>
 					The LSP can't make guesses, If it's a method and I use it wrong or misinterpret it's meaning, that's on me but Copilot can be actually wrong and present something that doesn't even work.
 					I don't think we have the computational power yet for the AI to test itself before it presents it's answer and Copilot is very good at presenting something that looks like it might be right.
@@ -63,7 +76,7 @@ templ IsCopilotADud(theme string) {
 				</p>
 			</section>
 			<section>
-				<h2>Humans are born problem-solvers</h2>
+				<h2 id="humans-are-born-problem-solvers">Humans are born problem-solvers</h2>
 				<p>
 					I've reading about dementia recently and long term mental health and in that book it suggests to combat dementia you should not use satellite navigation, why? 
 					<p>It apparently causes the hippocampus to diminish because the part of the brain that remembers which turn off to take or which direction your going comes from that part of the brain</p>
@@ -72,7 +85,7 @@ templ IsCopilotADud(theme string) {
 				</p>
 			</section>
 			<section>
-				<h1>Conclusion</h1>
+				<h1 id="conclusion">Conclusion</h1>
 				<p>So as you can probably tell I dont like Copilot autocomplete, and I seriously dislike the fact that it's the dominant tool type in the AI dev space. (Aside from opening up the GPT website.)</p>
 				<p>We should be definitely steering newer devs to <a href="https://docs.github.com/en/copilot/using-github-copilot/guides-on-using-github-copilot/refactoring-code-with-github-copilot">refactoring tools</a> over Autocomplete atleast have a go at implementing something yourself, Human input will be invaluable and AI should be steered to helping the human condition not replacing it.</p>
 			</section>
