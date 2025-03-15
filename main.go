@@ -170,7 +170,7 @@ func setupBlogHandler(router *mux.Router) {
 		case "to-be-steady":
 			blog_view = 4
 			blog = stoicism.ToBeSteady(theme)
-		case "copilot-a-dud":
+		case "ai-autocomplete":
 			blog_view = 5
 			blog = blogs.IsCopilotADud(theme)
 		}
