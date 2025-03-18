@@ -163,6 +163,9 @@ func setupBlogHandler(router *mux.Router) {
 	router.HandleFunc("/blog/{id}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		theme := internal.GetMessage("theme", r)
+		if theme == "" {
+			theme = "retro"
+		}
 		log.Printf("Got theme: %v", theme)
 		log.Println("Blog Requested")
 		id := vars["id"]
