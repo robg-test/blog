@@ -55,9 +55,15 @@ func main() {
 func setupPageHandlers(router *mux.Router) {
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		theme := internal.GetMessage("theme", r)
+		if theme == "" {
+			theme = "retro"
+		}
 		log.Printf("Got theme: %v", theme)
 		log.Println("Blog Requested")
 		indexPage := pages.IndexPage(theme)
+		if indexPage == nil {
+			indexPage = pages.IndexPage("retro")
+		}
 		templ.Handler(indexPage).ServeHTTP(w, r)
 	})
 

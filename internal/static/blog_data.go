@@ -42,8 +42,8 @@ var IntroData = models.BlogMeta{
 }
 
 var IsCopilotADudData = models.BlogMeta{
-	Description: "An opinion piece on what one could consider a disastrous implementation.",
+	Description: "I suggest you stop relying on suggestions",
 	Url:         uri + "blog/ai-autocomplete",
-	Title:       "The AI Auto-complete Crisis",
+	Title:       "The Code Suggestion Crisis",
 	ImageUri:    uri + "images/copilot/skullpilot.png",
 }
