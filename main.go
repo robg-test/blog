@@ -170,23 +170,17 @@ func setupBlogHandler(router *mux.Router) {
 		log.Println("Blog Requested")
 		id := vars["id"]
 
-		blog_view := 10000
 		var blog templ.Component
 		switch id {
 		case "intro":
-			blog_view = 1
 			blog = blogs.BlogIntro(theme)
 		case "serverless":
-			blog_view = 2
 			blog = blogs.AWSServerlessBlog(theme)
 		case "control-and-choice":
-			blog_view = 3
 			blog = stoicism.ControlAndChoice(theme)
 		case "to-be-steady":
-			blog_view = 4
 			blog = stoicism.ToBeSteady(theme)
 		case "ai-autocomplete":
-			blog_view = 5
 			blog = blogs.IsCopilotADud(theme)
 		}
 		
