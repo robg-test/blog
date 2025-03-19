@@ -189,8 +189,7 @@ func setupBlogHandler(router *mux.Router) {
 			blog_view = 5
 			blog = blogs.IsCopilotADud(theme)
 		}
-
-		services.UpdateBlogView(blog_view)
+		
 		templ.Handler(blog).ServeHTTP(w, r)
 	})
 }
