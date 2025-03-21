@@ -17,10 +17,15 @@ import (
 	"github.com/robgtest/blog/web/pages"
 )
 
+const (
+	defaultTheme   = "retro"
+	synthwaveTheme = "synthwave"
+)
+
 func main() {
 	loadableImages, err := getImagesList()
 	if err != nil {
-		panic(err)
+		log.Fatalf("Failed to get images list: %v", err)
 	}
 	log.SetFlags(log.LstdFlags)
 	setup()
@@ -31,10 +36,9 @@ func main() {
 	setupPageHandlers(router)
 
 	env := os.Getenv("ENV")
-	host := ":8080"
 
 	if env == "production" {
-		host = ":443"
+		host := ":443"
 		certPath := os.Getenv("CERT_PATH")
 		keyPath := os.Getenv("KEY_PATH")
 
@@ -44,6 +48,7 @@ func main() {
 			log.Printf("secure server failed: %s", err)
 		}
 	} else {
+		host := ":8080"
 		log.Println("Starting development server on", host)
 		err := http.ListenAndServe(host, internal.UserSessionManager.LoadAndSave(router))
 		if err != nil {
@@ -56,24 +61,24 @@ func setupPageHandlers(router *mux.Router) {
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		theme := internal.GetMessage("theme", r)
 		if theme == "" {
-			theme = "retro"
+			theme = defaultTheme
 		}
 		log.Printf("Got theme: %v", theme)
 		log.Println("Blog Requested")
 		indexPage := pages.IndexPage(theme)
 		if indexPage == nil {
-			indexPage = pages.IndexPage("retro")
+			indexPage = pages.IndexPage(defaultTheme)
 		}
 		templ.Handler(indexPage).ServeHTTP(w, r)
 	})
 
 	router.HandleFunc("/theme", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("change theme - old theme " + internal.GetMessage("theme", r))
-		if internal.GetMessage("theme", r) != "synthwave" {
-			internal.PutMessage("theme", "synthwave", r)
+		if internal.GetMessage("theme", r) != synthwaveTheme {
+			internal.PutMessage("theme", synthwaveTheme, r)
 			log.Println("change theme - new theme synthwave")
 		} else {
-			internal.PutMessage("theme", "retro", r)
+			internal.PutMessage("theme", defaultTheme, r)
 			log.Println("change theme - new theme retro")
 		}
 		w.WriteHeader(http.StatusOK)
@@ -81,24 +86,34 @@ func setupPageHandlers(router *mux.Router) {
 }
 
 func setupStaticHandlers(router *mux.Router, loadableImages []string) {
-	router.HandleFunc("/styles.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./web/static/css/output.css")
-	})
-	router.HandleFunc("/prism.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./web/static/css/prism.css")
-	})
-	router.HandleFunc("/js/prism.js", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./web/static/js/prism.js")
-	})
+	router.HandleFunc("/styles.css", serveCSS)
+	router.HandleFunc("/prism.css", servePrismCSS)
+	router.HandleFunc("/js/prism.js", servePrismJS)
 	router.HandleFunc("/images/{path:.*}", func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
-		log.Println(vars)
-		log.Println(loadableImages)
-		if contains(loadableImages, "web/static/images/"+vars["path"]) {
-			log.Println(vars["path"])
-			http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", vars["path"]))
-		}
+		serveImage(w, r, loadableImages)
 	})
+}
+
+func serveCSS(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "./web/static/css/output.css")
+}
+
+func servePrismCSS(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "./web/static/css/prism.css")
+}
+
+func servePrismJS(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "./web/static/js/prism.js")
+}
+
+func serveImage(w http.ResponseWriter, r *http.Request, loadableImages []string) {
+	vars := mux.Vars(r)
+	log.Println(vars)
+	log.Println(loadableImages)
+	if contains(loadableImages, "web/static/images/"+vars["path"]) {
+		log.Println(vars["path"])
+		http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", vars["path"]))
+	}
 }
 
 func contains(images []string, path string) bool {
@@ -183,7 +198,7 @@ func setupBlogHandler(router *mux.Router) {
 		case "ai-autocomplete":
 			blog = blogs.IsCopilotADud(theme)
 		}
-		
+
 		templ.Handler(blog).ServeHTTP(w, r)
 	})
 }
