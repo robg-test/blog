@@ -125,21 +125,6 @@ func contains(images []string, path string) bool {
 	return false
 }
 
-// func findMatchingImage(w http.ResponseWriter *http.Request, loadableImages []string) {
-// 	vars := mux.Vars(r)
-// 	path := vars["path"]
-// 	log.Printf("Loading image: %s", path)
-// 	for _, image := range loadableImages {
-// 		if strings.Compare(path, image) == 0 {
-// 			// process each image
-// 			log.Println("Presenting Image")
-// 			http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", image))
-// 			return
-// 		}
-// 	}
-// 	http.NotFound(w, r)
-// }
-
 func getImagesList() ([]string, error) {
 	directory := "./web/static/images"
 	fileMap := []string{}
