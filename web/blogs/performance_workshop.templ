@@ -1,0 +1,251 @@
+package blogs
+
+import (
+	"github.com/robgtest/blog/internal/static"
+	"github.com/robgtest/blog/web/components"
+	"github.com/robgtest/blog/web/pages"
+)
+
+templ metaPerformance() {
+	@components.MetaData(static.PerformanceWorkshop)
+}
+
+templ PerformanceWorkshop(theme string) {
+	@pages.BlogPage(theme, metaPerformance()) {
+		<div>
+			<section>
+				<h1>{ static.PerformanceWorkshop.Title }</h1>
+				@components.BlogTimeCaption("30")
+				<img class="mx-auto shadow-xl rounded-lg" src="../../images/performance/Answer-U-Blogpage.png" alt="Performance Guide"/>
+				<nav>
+					<ul></ul>
+				</nav>
+			</section>
+			<section>
+				<h2>AD Performance Testing</h2>
+				<p>This is the 2025 Performance Testing Workshop resource for the AD quarterly and is an accompying resource for that workshop. Not all resources (such as the API) may be available if this is done in the future.</p>
+				<p>You are welcome to try and follow this guide but there's no guarantee all things will work</p>
+			</section>
+			<section>
+				<h2>The Target</h2>
+				<p><a href="http://api.bob-productions.dev">api.bob-productions.dev</a></p>
+				<p>The goal of this workshop will be to run a performance test on the API. The API compromises of 3 simple features, a GET call, a PUT call and a POST call.</p>
+				<p>At the end of this guide we will have a performance test that will measure all 3 of these endpoints, giving us statistics on each one.</p>
+				<p>During that time for the AD quarterly the stats of the server hosting the API will be visible. So we can keep an eye on that to see how servers behave under load as well as what statistic to look out for</p>
+			</section>
+			<section>
+				<h2>Installing the Tools</h2>
+				<p>There are many performance testing tools available.</p>
+				<p>For the sake of the workshop and this guide the tool we will use is <a href="https://k6.io" target="_blank">k6</a>.</p>
+				<h3>K6</h3>
+				<p>You can install k6 <a href="https://github.com/grafana/k6/releases/download/v1.0.0-rc1/k6-v1.0.0-rc1-windows-amd64.msi">here</a> { "if" } you are using Windows.</p>
+				<p>Follow the installation instructions and add it to the system path if prompted</p>
+				<h3>Some Technical Gubbins</h3>
+				<p>K6 utilizes JavaScript to write tests however it's an execution engine written in go. E.g. You don't need node installed as K6 acts as node, but this has some downsides. Including that you can't just use NPM and import packages to K6 you need to recompile K6 with them</p>
+				<p>K6 comes with a large amount of packages supported meaning you should be able to do everything you need it to do, as a general advice sticking to the K6 docs is usually a good idea</p>
+			</section>
+			<section>
+				<h2>Verify K6 Installation</h2>
+				<p>Before writing a test make sure that K6 is running</p>
+				<p>You can do this with:</p>
+				@components.CodeBlock("language-bash", "k6 version")
+				<p>If the version came up, your good to go!</p>
+			</section>
+			<section>
+				<h2>First Performance Test</h2>
+				<p>You can view the swagger doc for the API here: <a>Swagger</a>. Let's setup a first test for the GET endpoint of the API, which has three resources available.</p>
+				<p>Let's create a K6 file with a call to the GET endpoint of the above API:</p>
+			</section>
+			@k6scriptone()
+			<p>Save this file as a Javascript file locally.</p>
+			<section>
+				<h2>Running the test</h2>
+				<p>Running the test is as simple as executing the run command k6 run with your script name with a script named script.js the below will run the test</p>
+				<p>You can configure how much traffic k6 will create by modifying the options objects at the top of the script. There are many configurations for this. I would suggest looking at <a href="https://grafana.com/docs/k6/latest/using-k6/k6-options/reference/">k6-options</a> on how to configure the tests</p>
+				@components.CodeBlock("language-bash", "k6 run script.js")
+			</section>
+			<section>
+				<h2>Adding more to the test</h2>
+				<p>Let's add a few new calls to the test POST and GET and run again</p>
+				@k6scripttwo()
+				<p>Give that a run.</p>
+			</section>
+			<p>You may have noticed that HTTP metrics are gathered together summarized as one, for the sake of measuring the individual endpoints GET, POST and PUT let's utilize a feature of k6 'tags'</p>
+			<section>
+				<h2>k6 Trends</h2>
+				<p>You can add some Trends to your test lets add those in</p>
+				@k6scriptthree()
+			</section>
+			<section>
+				<h2>Analyzing the Stats: Client</h2>
+				<p>k6 will provide us with quite a lot of detailed statistics and requires some maths:</p>
+				<h3>Averages</h3>
+				<p>The main reason we measure in averages is that network traffic, can be a bit random. Sometimes things can be slow due to networking jitters, so we rely on averages over a long period of time to get an accurate gauge on performance</p>
+				<h3>Percentiles</h3>
+				<p>This is a mathematical term, from a series of data we measure the x% of something we are measuring the remaining 100% - x% as a metric</p>
+				<p>In performance testing we are generally concerned about the Average (The average for all users) and the higher percentiles 80,90,95,99 so for each of those it's the average of the slowest 20%,10%,5% and 1%</p>
+				<p>We also measure the max and min but in performance testing these often fall victim to slow-starts where the software is loading up from being used the first time.</p>
+			</section>
+			<section>
+				<h2>Analzying the Stats: Server</h2>
+				<p>
+					Analyzing statistics and inferring meaning is where the value in performance testing is.
+					A lot of performance testing work is done by thinking about what the statistics are telling you
+				</p>
+				<p>However k6 is only able to measure response times from a client side, how does one measure the server?</p>
+				<p>Most performance tests aim to measure some key metrics server side; a list although not exhaustive, include:</p>
+				<ul>
+					<li><strong>Request Throughput</strong></li>
+					<li><strong>Network Latency</strong></li>
+					<li><strong>CPU Utilization</strong></li>
+					<li><strong>Memory Utilization</strong></li>
+					<li><strong>Disk I/O Rate</strong></li>
+				</ul>
+				<p>These are PC statistics that we need to grab, and we will want to see what these are for the duration of the test.</p>
+				<p>The best place to get these statistics will depend, mostly things are developed on the cloud these days so your cloud provider should provide these statistics, some cloud providers require you do some additional setup.</p>
+				<p>You also should measure non 2xx codes, aka server failures but these will can be interpreted via server logs</p>
+			</section>
+			<section>
+				<h2>There is no replacement for common sense</h2>
+				<p>
+					Meauring stats is one thing, but when dealing with potential performance issues, logical ordering, DRY (If network calls are involved), configurations are often times what cause perf issues.
+					Vertical scaling (Just giving it more power) will work for a good amount of instances but has limited returns if there are logical problems in the software
+					A lot comes from experience here but I have a general rule, if something is difficult to understand or is complex it probably has something wrong with it
+				</p>
+			</section>
+			<section>
+				<h2>Wrap-up</h2>
+				<p>This guide does not contain the walkthrough of the server side.</p>
+				<p>I will put these on later!</p>
+			</section>
+		</div>
+	}
+}
+
+templ k6scriptone() {
+	@components.MultiLineCodeBlock("language-javascript", "k6-code-1") {
+		<code id="k6-code-1">
+			{ `import http from "k6/http";
+import { sleep, check } from "k6" ;
+
+export const options = {
+  vus: 3,
+  duration: "30s",
+};
+
+export default function () {
+  const res = http.get("https://api.bob-productions.dev/items/1");
+  check(res, { "status is 200": (r) => r.status === 200 });
+  sleep(1);
+}` }
+		</code>
+	}
+}
+
+templ k6scripttwo() {
+	@components.MultiLineCodeBlock("language-javascript", "k6-code-2") {
+		<code id="k6-code-2">
+			{ `import http from "k6/http";
+import { sleep, check } from "k6";
+
+export const options = {
+  vus: 3,
+  duration: "30s",
+};
+
+export default function () {
+  let postRes = http.post(
+    "https://api.bob-productions.dev/items",
+    JSON.stringify({
+      name: "NewItem",
+      value: "SecondItem",
+    }),
+    {
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+  check(postRes, { "POST status is 200": (r) => r.status === 200 });
+  let body = postRes.json();
+  console.log(body);
+
+  let getRes = http.get(` + "`" + `https://api.bob-productions.dev/items/${body.id}` + "`" + `);
+  check(getRes, { "GET status is 200": (r) => r.status === 200 });
+  console.log(getRes);
+
+  let putRes = http.put(
+   ` + "`" + `https://api.bob-productions.dev/items/${body.id}` + "`" + `,
+    JSON.stringify({
+      name: "UpdatedItem",
+    }),
+    {
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+  check(putRes, { "PUT status is 204": (r) => r.status === 204 });
+  console.log(putRes);
+
+  sleep(1);
+}
+` }
+		</code>
+	}
+}
+
+templ k6scriptthree() {
+	@components.MultiLineCodeBlock("language-javascript", "k6-code-3") {
+		<code id="k6-code-3">
+			{ `import http from "k6/http";
+import { sleep, check } from "k6";
+import { Trend } from "k6/metrics";
+
+export const options = {
+  vus: 1,
+  duration: "10s",
+};
+
+const getTrend = new Trend("GET_Items");
+const putTrend = new Trend("PUT_Items");
+const postTrend = new Trend("POST_Items");
+
+export default function () {
+  let postRes = http.post(
+    "https://api.bob-productions.dev/items",
+    JSON.stringify({
+      name: "NewItem",
+      value: "SecondItem",
+    }),
+    {
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+  console.log(postRes);
+
+  check(postRes, { "POST status is 200": (r) => r.status === 200 });
+  let body = postRes.json();
+  console.log(body);
+
+  postTrend.add(postRes.timings.duration);
+
+  let getRes = http.get(` + "`" + `https://api.bob-productions.dev/items/${body.id}` + "`" + `);
+  check(getRes, { "GET status is 200": (r) => r.status === 200 });
+  console.log(getRes);
+
+    getTrend.add(getRes.timings.duration);
+
+    let putRes = http.put(
+      ` + "`" + `https://api.bob-productions.dev/items/${body.id}` + "`" + `,
+      JSON.stringify({
+        name: "UpdatedItem",
+      }),
+    );
+    check(putRes, { "PUT status is 204": (r) => r.status === 204 });
+    console.log(putRes);
+
+    putTrend.add(putRes.timings.duration);
+
+    sleep(1);
+  }
+    ` }
+		</code>
+	}
+}

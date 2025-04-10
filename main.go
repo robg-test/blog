@@ -11,7 +11,6 @@ import (
 	"github.com/a-h/templ"
 	"github.com/gorilla/mux"
 	"github.com/robgtest/blog/internal"
-	"github.com/robgtest/blog/internal/services"
 	"github.com/robgtest/blog/web/blogs"
 	"github.com/robgtest/blog/web/blogs/stoicism"
 	"github.com/robgtest/blog/web/pages"
@@ -182,16 +181,10 @@ func setupBlogHandler(router *mux.Router) {
 			blog = stoicism.ToBeSteady(theme)
 		case "ai-autocomplete":
 			blog = blogs.IsCopilotADud(theme)
+		case "perf-workshop":
+			blog = blogs.PerformanceWorkshop(theme)
 		}
 
 		templ.Handler(blog).ServeHTTP(w, r)
 	})
-}
-
-func handleBlogViews(view int) int {
-	views, err := services.GetBlogView(view)
-	if err != nil {
-		fmt.Println("Error getting blog views")
-	}
-	return views
 }

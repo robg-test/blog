@@ -47,3 +47,10 @@ var IsCopilotADudData = models.BlogMeta{
 	Title:       "The Code Suggestion Crisis",
 	ImageUri:    uri + "images/copilot/skullpilot.png",
 }
+
+var PerformanceWorkshop = models.BlogMeta{
+	Description: "Performance Workshop AD Quarterly",
+	Url:         uri + "blog/perf-workshop",
+	Title:       "AD Performance Workshop",
+	ImageUri:    uri + "images/performance/performance.png",
+}

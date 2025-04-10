@@ -22,6 +22,18 @@ templ BlogPage(theme string, meta templ.Component) {
 
         gtag('config', 'G-P2WG5C34K2');
       </script>
+			<script>
+				    async function copyText(identity) {
+				        try {
+				            // Get the text content from the element with the specified ID
+				            const copyText = document.getElementById(identity).innerText;
+				
+				            // Use the Clipboard API to write the text to the clipboard
+				            await navigator.clipboard.writeText(copyText);
+				        } catch (error) {
+				        }
+				    }
+				</script>
 		</head>
 		<body>
 			<div class="flex flex-col min-h-screen">
