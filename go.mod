@@ -1,6 +1,6 @@
 module github.com/robgtest/blog
 
-go 1.23.1
+go 1.24.4
 
 require (
 	github.com/a-h/templ v0.3.898
@@ -33,4 +33,7 @@ require (
 	golang.org/x/tools v0.32.0 // indirect
 )
 
-tool github.com/a-h/templ/cmd/templ
+tool (
+	github.com/a-h/templ/cmd/templ
+	github.com/robgtest/blog
+)
