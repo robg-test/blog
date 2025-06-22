@@ -165,6 +165,7 @@ func setupBlogHandler(router *mux.Router) {
 		if theme == "" {
 			theme = "retro"
 		}
+
 		log.Printf("Got theme: %v", theme)
 		log.Println("Blog Requested")
 		id := vars["id"]
