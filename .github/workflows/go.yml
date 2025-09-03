@@ -51,6 +51,6 @@ jobs:
             export ENV="production"
             export TURSO_DATABASE="${{ secrets.TURSO_DATABASE }}"
             docker compose pull
-            docker image prune -a -f
             docker compose down
             docker compose up -d
+            docker image prune -a -f
