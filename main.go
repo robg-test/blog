@@ -88,7 +88,7 @@ func setupStaticHandlers(router *chi.Mux, loadableImages []string) {
 	router.Get("/styles.css", serveCSS)
 	router.Get("/prism.css", servePrismCSS)
 	router.Get("/js/prism.js", servePrismJS)
-	router.Get("/images/{*path}", func(w http.ResponseWriter, r *http.Request) {
+	router.Get("/images/*", func(w http.ResponseWriter, r *http.Request) {
 		serveImage(w, r, loadableImages)
 	})
 }
@@ -106,11 +106,11 @@ func servePrismJS(w http.ResponseWriter, r *http.Request) {
 }
 
 func serveImage(w http.ResponseWriter, r *http.Request, loadableImages []string) {
-	path := chi.URLParam(r, "*path")
-	log.Println(path)
+	path := r.URL.Path[len("/images/"):]
+	log.Println("Image path:", path)
 	log.Println(loadableImages)
 	if contains(loadableImages, "web/static/images/"+path) {
-		log.Println(path)
+		log.Println("Serving image:", path)
 		http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", path))
 	}
 }
