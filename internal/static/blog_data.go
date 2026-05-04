@@ -54,3 +54,10 @@ var PerformanceWorkshop = models.BlogMeta{
 	Title:       "AD Performance Workshop",
 	ImageUri:    uri + "images/performance/performance.png",
 }
+
+var GrugAutomationData = models.BlogMeta{
+	Description: "Why test automation projects fail, explained with simple Grug wisdom and practical engineering lessons.",
+	Url:         uri + "blog/grug-automation",
+	Title:       "Grug Guide to Why Test Automation Fails",
+	ImageUri:    uri + "images/testing/grug-automation.png",
+}

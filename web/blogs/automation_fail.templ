@@ -1,0 +1,244 @@
+package blogs
+
+import (
+	"github.com/robgtest/blog/internal/static"
+	"github.com/robgtest/blog/web/components"
+	"github.com/robgtest/blog/web/pages"
+)
+
+templ metaGrugAutomationBlog() {
+	@components.MetaData(static.GrugAutomationData)
+}
+
+templ GrugAutomationBlog(theme string) {
+	@pages.BlogPage(theme, metaGrugAutomationBlog()) {
+		<figure>
+			<h1>{ static.GrugAutomationData.Title }</h1>
+			@components.BlogTimeCaption("6")
+		</figure>
+
+		<h2 id="intro">Introduction</h2>
+		<p>
+			Watching development teams try to balance automation into their workstreams is often a source of huge frustration.
+			It requires dedication, ownership, discipline and perhaps the hardest thing of all — it is difficult to measure improvement.
+		</p>
+
+		<p>
+			Automation is often treated as something that can simply be “added later”, but in reality successful automation depends
+			heavily on how the system itself is designed.
+		</p>
+
+		<h2 id="reasons">Why Automation Fails</h2>
+
+		<h3 id="testability">Bad Testability</h3>
+		<p>
+			System built like tangled vines. Everything connected to everything.
+			Tester tries to test one thing and the whole system moves.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			Testing needs to be considered from the start. In the modern world we often focus on NFRs such as performance
+			and security because they have clear user impact, but testability is one of the most important aspects of
+			reliable software delivery.
+		</p>
+
+		<p>
+			Is the answer microservices? Usually not. Testability is less about architectural fashion and more about
+			modularity. Systems with small responsibilities that are easily observable and testable are far easier
+			to automate.
+		</p>
+
+		<p>
+			Context is important. Understanding the current system and choosing the next improvement carefully
+			is often the best approach. Things can always get better — and worse.
+		</p>
+
+		<h3 id="ui">Too Much UI Testing</h3>
+		<p>
+			Teams see the shiny UI and try to automate everything there.
+			The UI changes constantly and tests break frequently.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			To quote Grug:
+		</p>
+
+		<blockquote>
+			in-between tests, grug hear shaman call "integration tests"
+			sometime often with sour look on face. but grug say integration test sweet spot
+			according to grug: high level enough test correctness of system,
+			low level enough, with good debugger, easy to see what break
+		</blockquote>
+
+		<p>
+			Integration tests often provide the best balance. They validate real behaviour while remaining stable
+			enough to debug effectively. If this is difficult to achieve, revisit the earlier section on testability.
+		</p>
+
+		<h3 id="plan">No Plan</h3>
+		<p>
+			Teams say “automate everything”.
+			They automate random scenarios while important flows remain untested.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			Discipline and realism are required. Not everything is broken and not everything needs automation immediately.
+			Learning to choose the right targets is critical.
+		</p>
+
+		<p>
+			The best automation targets are often identified by those who understand the system best —
+			the people who work with it every day.
+		</p>
+
+		<h3 id="dev">Dev No Help</h3>
+		<p>
+			Testers ask for APIs, dependency injection or test hooks.
+			Developers respond with “just automate the UI”.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			The response depends heavily on the relationship between testers and developers.
+			This sequence usually reflects the health of a team:
+		</p>
+
+		<ol>
+			<li>
+				<strong>Collaborate</strong><br/>
+				The healthiest situation is when developers trust your opinion and collaborate toward a better solution.
+				Remember that good developers will sometimes say no — but if the answer is always no,
+				that may indicate deeper team problems.
+			</li>
+
+			<li>
+				<strong>Demonstrate</strong><br/>
+				If explanation fails, demonstrate the benefit.
+				Developers often respond well to seeing a strong automated test.
+				Good tests reduce anxiety and increase confidence in changes.
+			</li>
+
+			<li>
+				<strong>Escalate</strong><br/>
+				If there is no appetite for testing or developers have little respect for quality practices,
+				a third party may need to be involved.
+				How far escalation goes reflects the severity of the problem.
+			</li>
+		</ol>
+
+		<p>
+			Be realistic — developers are often under pressure from delivery management to ship features quickly.
+			This leads to the ancient tension between delivery speed and quality.
+			Paradoxically, slowing down slightly often leads to faster delivery in the long run.
+		</p>
+
+		<h3 id="env">Bad Environments</h3>
+		<p>
+			Shared environments and unstable services cause tests to fail for reasons nobody understands.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			This again comes back to testability and environment design.
+			Stable environments and predictable infrastructure dramatically improve automation reliability.
+		</p>
+
+		<h3 id="data">Bad Test Data</h3>
+		<p>
+			Tests require clean data but the database already contains conflicting records
+			or inconsistent state.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			Once again this relates to testability — but now at the data layer.
+			Proper data management, reset strategies, or synthetic datasets
+			are often required for reliable automation.
+		</p>
+
+		<h3 id="code">Automation Code Becomes a Mess</h3>
+		<p>
+			Automation is treated like disposable scripts.
+			Eventually the test suite becomes a tangled cave of duplicate tests.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			Developers tend to be stronger at writing maintainable code,
+			while testers are more motivated to ensure correct behaviour.
+			A strong approach is collaboration:
+		</p>
+
+		<ul>
+			<li>Developers help enforce coding standards in automation projects</li>
+			<li>Testers focus on identifying valuable automation targets</li>
+		</ul>
+
+		<p>
+			Each discipline strengthens the other.
+		</p>
+
+		<h3 id="tools">Tool Worship</h3>
+		<p>
+			Managers buy large automation tools expecting them to solve quality problems.
+			The underlying system is still difficult to test.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			People are more important than tools.
+			Tools are useful, but they are not a substitute for good architecture and engineering practices.
+		</p>
+
+		<p>
+			The best approach is usually to assign someone time to properly learn the tool
+			and train others. Complex tools require patience and experience.
+		</p>
+
+		<h3 id="expectations">Wrong Expectations</h3>
+		<p>
+			Many companies expect automation teams to provide immediate ROI.
+			In reality the benefits of automation are often indirect and difficult to quantify.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			This is a two-way street.
+			Automation teams must demonstrate value where possible,
+			while organisations must understand that some benefits are qualitative.
+		</p>
+
+		<p>
+			Automation changes the nature of defects rather than eliminating them.
+			Measuring this precisely is difficult, which means some degree of judgement
+			and trust is required.
+		</p>
+
+		<h3 id="ownership">No Ownership</h3>
+		<p>
+			Automation is built once and never maintained.
+			Over time the suite becomes unreliable and teams stop trusting it.
+		</p>
+
+		<h4>Remedy</h4>
+		<p>
+			Automation requires ownership and maintenance.
+			Some tests will inevitably become obsolete, and removing them
+			can sometimes be healthier than keeping them alive.
+		</p>
+
+		<h2 id="wisdom">Grug Wisdom</h2>
+
+		<p>Automation fails when tribes try to automate chaos.</p>
+
+		<ul>
+			<li>Make systems simpler and easier to test</li>
+			<li>Automate high-value behaviour first</li>
+			<li>Developers and testers share responsibility for quality</li>
+			<li>Maintain automation like real software</li>
+		</ul>
+	}
+}

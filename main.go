@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/a-h/templ"
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi/v5"
 	"github.com/robgtest/blog/internal"
 	"github.com/robgtest/blog/web/blogs"
 	"github.com/robgtest/blog/web/blogs/stoicism"
@@ -29,7 +29,7 @@ func main() {
 	log.SetFlags(log.LstdFlags)
 	setup()
 
-	router := mux.NewRouter()
+	router := chi.NewRouter()
 	setupStaticHandlers(router, loadableImages)
 	setupBlogHandler(router)
 	setupPageHandlers(router)
@@ -56,8 +56,8 @@ func main() {
 	}
 }
 
-func setupPageHandlers(router *mux.Router) {
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+func setupPageHandlers(router *chi.Mux) {
+	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		theme := internal.GetMessage("theme", r)
 		if theme == "" {
 			theme = defaultTheme
@@ -71,7 +71,7 @@ func setupPageHandlers(router *mux.Router) {
 		templ.Handler(indexPage).ServeHTTP(w, r)
 	})
 
-	router.HandleFunc("/theme", func(w http.ResponseWriter, r *http.Request) {
+	router.Put("/theme", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("change theme - old theme " + internal.GetMessage("theme", r))
 		if internal.GetMessage("theme", r) != synthwaveTheme {
 			internal.PutMessage("theme", synthwaveTheme, r)
@@ -84,11 +84,11 @@ func setupPageHandlers(router *mux.Router) {
 	})
 }
 
-func setupStaticHandlers(router *mux.Router, loadableImages []string) {
-	router.HandleFunc("/styles.css", serveCSS)
-	router.HandleFunc("/prism.css", servePrismCSS)
-	router.HandleFunc("/js/prism.js", servePrismJS)
-	router.HandleFunc("/images/{path:.*}", func(w http.ResponseWriter, r *http.Request) {
+func setupStaticHandlers(router *chi.Mux, loadableImages []string) {
+	router.Get("/styles.css", serveCSS)
+	router.Get("/prism.css", servePrismCSS)
+	router.Get("/js/prism.js", servePrismJS)
+	router.Get("/images/{path}", func(w http.ResponseWriter, r *http.Request) {
 		serveImage(w, r, loadableImages)
 	})
 }
@@ -106,12 +106,12 @@ func servePrismJS(w http.ResponseWriter, r *http.Request) {
 }
 
 func serveImage(w http.ResponseWriter, r *http.Request, loadableImages []string) {
-	vars := mux.Vars(r)
-	log.Println(vars)
+	path := chi.URLParam(r, "path")
+	log.Println(path)
 	log.Println(loadableImages)
-	if contains(loadableImages, "web/static/images/"+vars["path"]) {
-		log.Println(vars["path"])
-		http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", vars["path"]))
+	if contains(loadableImages, "web/static/images/"+path) {
+		log.Println(path)
+		http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", path))
 	}
 }
 
@@ -158,9 +158,8 @@ func setup() {
 	}
 }
 
-func setupBlogHandler(router *mux.Router) {
-	router.HandleFunc("/blog/{id}", func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
+func setupBlogHandler(router *chi.Mux) {
+	router.Get("/blog/{id}", func(w http.ResponseWriter, r *http.Request) {
 		theme := internal.GetMessage("theme", r)
 		if theme == "" {
 			theme = "retro"
@@ -168,7 +167,7 @@ func setupBlogHandler(router *mux.Router) {
 
 		log.Printf("Got theme: %v", theme)
 		log.Println("Blog Requested")
-		id := vars["id"]
+		id := chi.URLParam(r, "id")
 
 		var blog templ.Component
 		switch id {

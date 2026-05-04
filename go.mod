@@ -6,7 +6,7 @@ require (
 	github.com/a-h/templ v0.3.898
 	github.com/alexedwards/scs/goredisstore v0.0.0-20250212122300-421ef1d8611c
 	github.com/alexedwards/scs/v2 v2.8.0
-	github.com/gorilla/mux v1.8.1
+	github.com/go-chi/chi/v5 v5.2.5
 	github.com/redis/go-redis/v9 v9.7.1
 	github.com/tursodatabase/libsql-client-go v0.0.0-20240902231107-85af5b9d094d
 )
