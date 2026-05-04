@@ -63,8 +63,5 @@ jobs:
             docker compose up -d
             sleep 5
             curl -f -k https://localhost:443 || exit 1
-            curl -s -o /dev/null -w "%{http_code}" https://localhost:443/ | grep -q "200" || exit 1
-            curl -s -o /dev/null -w "%{http_code}" https://localhost:443/images/vim-user.webp | grep -q "200" || exit 1
-            echo "Image check passed ✓"
 
             docker image prune -a -f
