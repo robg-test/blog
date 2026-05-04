@@ -43,7 +43,7 @@ templ themeSwitch(theme string) {
 		<div id="synthwave">
 			<label class="swap swap-rotate">
 				<!-- this hidden checkbox controls the state -->
-				<input id="theme-controller" type="checkbox" class="theme-controller" value="synthwave" hx-get="/theme"/>
+				<input id="theme-controller" type="checkbox" class="theme-controller" value="synthwave" hx-put="/theme"/>
 				<!-- moon icon -->
 				<svg
 					class="swap-on h-10 w-10 fill-current"
@@ -70,7 +70,7 @@ templ themeSwitch(theme string) {
 		<div id="retro">
 			<label class="swap swap-rotate">
 				<!-- this hidden checkbox controls the state -->
-				<input id="theme-controller" type="checkbox" class="theme-controller" value="retro" hx-get="/theme"/>
+				<input id="theme-controller" type="checkbox" class="theme-controller" value="retro" hx-put="/theme"/>
 				<!-- moon icon -->
 				<!-- sun icon -->
 				<svg
