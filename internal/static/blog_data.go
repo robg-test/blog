@@ -17,21 +17,21 @@ var ControlAndChoiceData = models.BlogMeta{
 	Title:       "Weekly Stoic: Control & Choice",
 	Url:         uri + "blog/control-and-choice",
 	Description: "Quick testing wellbeing tidbits",
-	ImageUri:    uri + "images/stoic1.jpeg",
+	ImageUri:    uri + "images/stoic1.webp",
 }
 
 var ToBeSteadyData = models.BlogMeta{
 	Title:       "Weekly Stoic: To Be Steady & Unsteady",
 	Url:         uri + "blog/to-be-steady",
 	Description: "Quick testing wellbeing tidbits",
-	ImageUri:    uri + "images/stoic2.jpg",
+	ImageUri:    uri + "images/stoic2.webp",
 }
 
 var AWSServerlessData = models.BlogMeta{
 	Description: "Achieving performant cloud architecture: AWS Lambdas",
 	Url:         uri + "blog/serverless",
 	Title:       "Software Performance Guide: AWS Lambdas",
-	ImageUri:    uri + "images/lambda-serverless/AWS-Meta.png",
+	ImageUri:    uri + "images/lambda-serverless/AWS-Meta.webp",
 }
 
 var IntroData = models.BlogMeta{
@@ -45,19 +45,19 @@ var IsCopilotADudData = models.BlogMeta{
 	Description: "I suggest you stop relying on suggestions",
 	Url:         uri + "blog/ai-autocomplete",
 	Title:       "The Code Suggestion Crisis",
-	ImageUri:    uri + "images/copilot/skullpilot.png",
+	ImageUri:    uri + "images/copilot/skullpilot.webp",
 }
 
 var PerformanceWorkshop = models.BlogMeta{
 	Description: "Performance Workshop AD Quarterly",
 	Url:         uri + "blog/perf-workshop",
 	Title:       "AD Performance Workshop",
-	ImageUri:    uri + "images/performance/performance.png",
+	ImageUri:    uri + "images/performance/performance.webp",
 }
 
 var GrugAutomationData = models.BlogMeta{
 	Description: "Why test automation projects fail, explained with simple Grug wisdom and practical engineering lessons.",
 	Url:         uri + "blog/grug-automation",
 	Title:       "Grug Guide to Why Test Automation Fails",
-	ImageUri:    uri + "images/testing/grug-automation.png",
+	ImageUri:    uri + "images/testing/grug-automation.webp",
 }
