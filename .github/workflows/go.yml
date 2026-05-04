@@ -30,7 +30,7 @@ jobs:
           docker push ghcr.io/${{ github.repository_owner }}/blog:latest
 
       - name: Deploy to Server
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v1
         with:
           host: 46.101.95.175
           username: root
@@ -39,7 +39,7 @@ jobs:
           target: "/root/"
 
       - name: Pull latest Docker image and run Docker Compose
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1
         with:
           host: 46.101.95.175
           username: root
