@@ -1,4 +1,4 @@
-/*! tailwindcss v4.1.4 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.2.1 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -20,17 +20,7 @@
     --font-weight-bold: 700;
     --radius-lg: 0.5rem;
     --default-font-family: var(--font-sans);
-    --default-font-feature-settings: var(--font-sans--font-feature-settings);
-    --default-font-variation-settings: var(
-      --font-sans--font-variation-settings
-    );
     --default-mono-font-family: var(--font-mono);
-    --default-mono-font-feature-settings: var(
-      --font-mono--font-feature-settings
-    );
-    --default-mono-font-variation-settings: var(
-      --font-mono--font-variation-settings
-    );
   }
 }
 @layer base {
@@ -44,13 +34,10 @@
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     tab-size: 4;
-    font-family: var( --default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" );
+    font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
     font-feature-settings: var(--default-font-feature-settings, normal);
-    font-variation-settings: var( --default-font-variation-settings, normal );
+    font-variation-settings: var(--default-font-variation-settings, normal);
     -webkit-tap-highlight-color: transparent;
-  }
-  body {
-    line-height: inherit;
   }
   hr {
     height: 0;
@@ -74,9 +61,9 @@
     font-weight: bolder;
   }
   code, kbd, samp, pre {
-    font-family: var( --default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace );
-    font-feature-settings: var( --default-mono-font-feature-settings, normal );
-    font-variation-settings: var( --default-mono-font-variation-settings, normal );
+    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+    font-feature-settings: var(--default-mono-font-feature-settings, normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
     font-size: 1em;
   }
   small {
@@ -140,9 +127,13 @@
   }
   ::placeholder {
     opacity: 1;
-    color: currentColor;
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, currentColor 50%, transparent);
+  }
+  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
+    ::placeholder {
+      color: currentcolor;
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
     }
   }
   textarea {
@@ -163,6 +154,9 @@
   }
   ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {
     padding-block: 0;
+  }
+  ::-webkit-calendar-picker-indicator {
+    line-height: 1;
   }
   :-moz-ui-invalid {
     box-shadow: none;
@@ -255,7 +249,6 @@
       content: var(--tw-content);
     }
     &:after {
-      position: absolute;
       position: absolute;
       opacity: 0%;
       background-color: var(--tt-bg);
@@ -1588,6 +1581,12 @@
       inset: 50% calc(var(--tt-tail) + 1px) auto auto;
     }
   }
+  .start {
+    inset-inline-start: var(--spacing);
+  }
+  .end {
+    inset-inline-end: var(--spacing);
+  }
   .stack {
     display: inline-grid;
     grid-template-columns: 3px 4px 1fr 4px 3px;
@@ -1667,9 +1666,6 @@
   }
   .z-1 {
     z-index: 1;
-  }
-  .z-8 {
-    z-index: 8;
   }
   .hero {
     display: grid;
@@ -2043,42 +2039,42 @@
       line-height: 1.4285714;
       margin-top: 0.8571429em;
     }
-    --tw-prose-body: oklch(0.373 0.034 259.733);
-    --tw-prose-headings: oklch(0.21 0.034 264.665);
-    --tw-prose-lead: oklch(0.446 0.03 256.802);
-    --tw-prose-links: oklch(0.21 0.034 264.665);
-    --tw-prose-bold: oklch(0.21 0.034 264.665);
-    --tw-prose-counters: oklch(0.551 0.027 264.364);
-    --tw-prose-bullets: oklch(0.872 0.01 258.338);
-    --tw-prose-hr: oklch(0.928 0.006 264.531);
-    --tw-prose-quotes: oklch(0.21 0.034 264.665);
-    --tw-prose-quote-borders: oklch(0.928 0.006 264.531);
-    --tw-prose-captions: oklch(0.551 0.027 264.364);
-    --tw-prose-kbd: oklch(0.21 0.034 264.665);
+    --tw-prose-body: oklch(37.3% 0.034 259.733);
+    --tw-prose-headings: oklch(21% 0.034 264.665);
+    --tw-prose-lead: oklch(44.6% 0.03 256.802);
+    --tw-prose-links: oklch(21% 0.034 264.665);
+    --tw-prose-bold: oklch(21% 0.034 264.665);
+    --tw-prose-counters: oklch(55.1% 0.027 264.364);
+    --tw-prose-bullets: oklch(87.2% 0.01 258.338);
+    --tw-prose-hr: oklch(92.8% 0.006 264.531);
+    --tw-prose-quotes: oklch(21% 0.034 264.665);
+    --tw-prose-quote-borders: oklch(92.8% 0.006 264.531);
+    --tw-prose-captions: oklch(55.1% 0.027 264.364);
+    --tw-prose-kbd: oklch(21% 0.034 264.665);
     --tw-prose-kbd-shadows: NaN NaN NaN;
-    --tw-prose-code: oklch(0.21 0.034 264.665);
-    --tw-prose-pre-code: oklch(0.928 0.006 264.531);
-    --tw-prose-pre-bg: oklch(0.278 0.033 256.848);
-    --tw-prose-th-borders: oklch(0.872 0.01 258.338);
-    --tw-prose-td-borders: oklch(0.928 0.006 264.531);
-    --tw-prose-invert-body: oklch(0.872 0.01 258.338);
+    --tw-prose-code: oklch(21% 0.034 264.665);
+    --tw-prose-pre-code: oklch(92.8% 0.006 264.531);
+    --tw-prose-pre-bg: oklch(27.8% 0.033 256.848);
+    --tw-prose-th-borders: oklch(87.2% 0.01 258.338);
+    --tw-prose-td-borders: oklch(92.8% 0.006 264.531);
+    --tw-prose-invert-body: oklch(87.2% 0.01 258.338);
     --tw-prose-invert-headings: #fff;
-    --tw-prose-invert-lead: oklch(0.707 0.022 261.325);
+    --tw-prose-invert-lead: oklch(70.7% 0.022 261.325);
     --tw-prose-invert-links: #fff;
     --tw-prose-invert-bold: #fff;
-    --tw-prose-invert-counters: oklch(0.707 0.022 261.325);
-    --tw-prose-invert-bullets: oklch(0.446 0.03 256.802);
-    --tw-prose-invert-hr: oklch(0.373 0.034 259.733);
-    --tw-prose-invert-quotes: oklch(0.967 0.003 264.542);
-    --tw-prose-invert-quote-borders: oklch(0.373 0.034 259.733);
-    --tw-prose-invert-captions: oklch(0.707 0.022 261.325);
+    --tw-prose-invert-counters: oklch(70.7% 0.022 261.325);
+    --tw-prose-invert-bullets: oklch(44.6% 0.03 256.802);
+    --tw-prose-invert-hr: oklch(37.3% 0.034 259.733);
+    --tw-prose-invert-quotes: oklch(96.7% 0.003 264.542);
+    --tw-prose-invert-quote-borders: oklch(37.3% 0.034 259.733);
+    --tw-prose-invert-captions: oklch(70.7% 0.022 261.325);
     --tw-prose-invert-kbd: #fff;
     --tw-prose-invert-kbd-shadows: 255 255 255;
     --tw-prose-invert-code: #fff;
-    --tw-prose-invert-pre-code: oklch(0.872 0.01 258.338);
+    --tw-prose-invert-pre-code: oklch(87.2% 0.01 258.338);
     --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
-    --tw-prose-invert-th-borders: oklch(0.446 0.03 256.802);
-    --tw-prose-invert-td-borders: oklch(0.373 0.034 259.733);
+    --tw-prose-invert-th-borders: oklch(44.6% 0.03 256.802);
+    --tw-prose-invert-td-borders: oklch(37.3% 0.034 259.733);
     font-size: 1rem;
     line-height: 1.75;
     :where(picture > img):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
@@ -2544,7 +2540,7 @@
     min-height: 100vh;
   }
   .w-3\/4 {
-    width: calc(3/4 * 100%);
+    width: calc(3 / 4 * 100%);
   }
   .w-5 {
     width: calc(var(--spacing) * 5);
@@ -2553,7 +2549,7 @@
     width: calc(var(--spacing) * 10);
   }
   .w-10\/12 {
-    width: calc(10/12 * 100%);
+    width: calc(10 / 12 * 100%);
   }
   .w-52 {
     width: calc(var(--spacing) * 52);
