@@ -20,29 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check images are optimized (WebP format)
+      - name: Verify images are WebP format
         run: |
-          echo "Checking for unoptimized images..."
-          # Find any remaining PNGs, JPGs, or JPEGs (should be WebP only)
-          UNOPTIMIZED=$(find web/static/images -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) 2>/dev/null || true)
-          if [ -n "$UNOPTIMIZED" ]; then
-            echo "ERROR: Unoptimized images found (should be WebP):"
-            echo "$UNOPTIMIZED"
-            exit 1
+          UNOPT=$(find web/static/images -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) 2>/dev/null || true)
+          if [ -n "$UNOPT" ]; then
+            echo "ERROR: Non-WebP images found:"; echo "$UNOPT"; exit 1
           fi
-          echo "All images are in WebP format ✓"
-
-      - name: Check image sizes
-        run: |
-          echo "Checking image sizes..."
-          # Fail if any WebP image is larger than 100KB
-          LARGE=$(find web/static/images -type f -name "*.webp" -size +100k 2>/dev/null || true)
-          if [ -n "$LARGE" ]; then
-            echo "WARNING: Large images found (>100KB):"
-            du -h $LARGE
-            echo "Consider further optimization"
-          fi
-          echo "Image size check complete ✓"
 
       - name: Build Docker Image
         run: |
