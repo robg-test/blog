@@ -13,3 +13,5 @@ test-tool.exe
 testapp.exe
 node_modules
 blog
+.opencode/skills/daisyui/SKILL.md
+blog-test
