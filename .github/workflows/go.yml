@@ -7,6 +7,7 @@ on:
   push:
     branches: ["main"]
   schedule:
+    # Monthly cert renewal check (runs 1st of every month at 4am)
     - cron: 0 4 1 * *
 
 permissions:
@@ -53,4 +54,6 @@ jobs:
             docker compose pull
             docker compose down
             docker compose up -d
+            sleep 5
+            curl -f -k https://localhost:443 || exit 1
             docker image prune -a -f
