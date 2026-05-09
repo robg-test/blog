@@ -38,10 +38,10 @@ templ BlogPage(theme string, meta templ.Component) {
 		<body>
 			<div class="flex flex-col min-h-screen">
 				@components.Navigation(theme)
-				<div id="content" class="flex flex-grow justify-center items-center mx-auto w-10/12">
+				<div id="content" class="flex flex-grow justify-center items-center mx-auto w-11/12">
 					<div>
 						<div>
-							<div class="prose">
+							<div class="prose max-w-4xl">
 								@components.Breadcrumb()
 								{ children... }
 								<br/>

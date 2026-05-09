@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/xml"
 	"fmt"
 	"io/fs"
 	"log"
@@ -11,6 +12,8 @@ import (
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
 	"github.com/robgtest/blog/internal"
+	"github.com/robgtest/blog/internal/models"
+	"github.com/robgtest/blog/internal/static"
 	"github.com/robgtest/blog/web/blogs"
 	"github.com/robgtest/blog/web/blogs/stoicism"
 	"github.com/robgtest/blog/web/pages"
@@ -88,9 +91,67 @@ func setupStaticHandlers(router *chi.Mux, loadableImages []string) {
 	router.Get("/styles.css", serveCSS)
 	router.Get("/prism.css", servePrismCSS)
 	router.Get("/js/prism.js", servePrismJS)
+	router.Get("/rss.xml", serveRSS)
 	router.Get("/images/*", func(w http.ResponseWriter, r *http.Request) {
 		serveImage(w, r, loadableImages)
 	})
+}
+
+type rssItem struct {
+	Title       string `xml:"title"`
+	Link        string `xml:"link"`
+	Description string `xml:"description"`
+	PubDate     string `xml:"pubDate"`
+}
+
+type rssChannel struct {
+	Title       string    `xml:"title"`
+	Link        string    `xml:"link"`
+	Description string    `xml:"description"`
+	Items       []rssItem `xml:"item"`
+}
+
+type rssFeed struct {
+	XMLName xml.Name   `xml:"rss"`
+	Version string     `xml:"version,attr"`
+	Channel rssChannel `xml:"channel"`
+}
+
+func serveRSS(w http.ResponseWriter, r *http.Request) {
+	posts := []models.BlogMeta{
+		static.QuietSkillsData,
+		static.GrugAutomationData,
+		static.PerformanceWorkshop,
+		static.IsCopilotADudData,
+		static.AWSServerlessData,
+		static.ToBeSteadyData,
+		static.ControlAndChoiceData,
+		static.IntroData,
+	}
+
+	items := make([]rssItem, len(posts))
+	for i, p := range posts {
+		items[i] = rssItem{
+			Title:       p.Title,
+			Link:        p.Url,
+			Description: p.Description,
+			PubDate:     p.Published.Format("Mon, 02 Jan 2006 00:00:00 +0000"),
+		}
+	}
+
+	feed := rssFeed{
+		Version: "2.0",
+		Channel: rssChannel{
+			Title:       "Bob Productions",
+			Link:        "https://blog.bob-productions.dev/",
+			Description: "Engineering, performance, and the occasional opinion.",
+			Items:       items,
+		},
+	}
+
+	w.Header().Set("Content-Type", "application/rss+xml; charset=utf-8")
+	w.Write([]byte(xml.Header))
+	xml.NewEncoder(w).Encode(feed)
 }
 
 func serveCSS(w http.ResponseWriter, r *http.Request) {
@@ -183,6 +244,8 @@ func setupBlogHandler(router *chi.Mux) {
 			blog = blogs.IsCopilotADud(theme)
 		case "perf-workshop":
 			blog = blogs.PerformanceWorkshop(theme)
+		case "quiet-skills":
+			blog = blogs.QuietSkillsBlog(theme)
 		}
 
 		templ.Handler(blog).ServeHTTP(w, r)

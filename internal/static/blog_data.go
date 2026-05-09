@@ -2,9 +2,14 @@ package static
 
 import (
 	"os"
+	"time"
 
 	"github.com/robgtest/blog/internal/models"
 )
+
+func date(year, month, day int) time.Time {
+	return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+}
 
 var uri = func() string {
 	if os.Getenv("ENV") == "production" {
@@ -18,6 +23,7 @@ var ControlAndChoiceData = models.BlogMeta{
 	Url:         uri + "blog/control-and-choice",
 	Description: "Quick testing wellbeing tidbits",
 	ImageUri:    uri + "images/stoic1.webp",
+	Published:   date(2025, 1, 1),
 }
 
 var ToBeSteadyData = models.BlogMeta{
@@ -25,6 +31,7 @@ var ToBeSteadyData = models.BlogMeta{
 	Url:         uri + "blog/to-be-steady",
 	Description: "Quick testing wellbeing tidbits",
 	ImageUri:    uri + "images/stoic2.webp",
+	Published:   date(2025, 1, 10),
 }
 
 var AWSServerlessData = models.BlogMeta{
@@ -32,6 +39,7 @@ var AWSServerlessData = models.BlogMeta{
 	Url:         uri + "blog/serverless",
 	Title:       "Software Performance Guide: AWS Lambdas",
 	ImageUri:    uri + "images/lambda-serverless/AWS-Meta.webp",
+	Published:   date(2025, 1, 1),
 }
 
 var IntroData = models.BlogMeta{
@@ -39,6 +47,7 @@ var IntroData = models.BlogMeta{
 	Url:         uri + "blog/intro",
 	Title:       "An Introduction To Bob Productions",
 	ImageUri:    uri + "images/Sweat.webp",
+	Published:   date(2025, 1, 1),
 }
 
 var IsCopilotADudData = models.BlogMeta{
@@ -46,6 +55,7 @@ var IsCopilotADudData = models.BlogMeta{
 	Url:         uri + "blog/ai-autocomplete",
 	Title:       "The Code Suggestion Crisis",
 	ImageUri:    uri + "images/copilot/skullpilot.webp",
+	Published:   date(2025, 1, 10),
 }
 
 var PerformanceWorkshop = models.BlogMeta{
@@ -53,6 +63,7 @@ var PerformanceWorkshop = models.BlogMeta{
 	Url:         uri + "blog/perf-workshop",
 	Title:       "AD Performance Workshop",
 	ImageUri:    uri + "images/performance/performance.webp",
+	Published:   date(2025, 4, 10),
 }
 
 var GrugAutomationData = models.BlogMeta{
@@ -60,4 +71,13 @@ var GrugAutomationData = models.BlogMeta{
 	Url:         uri + "blog/grug-automation",
 	Title:       "Grug Guide to Why Test Automation Fails",
 	ImageUri:    uri + "images/testing/grug-automation.webp",
+	Published:   date(2026, 5, 4),
+}
+
+var QuietSkillsData = models.BlogMeta{
+	Description: "Getting production systems started and running.",
+	Url:         uri + "blog/quiet-skills",
+	Title:       "Skills for New Production Systems",
+	ImageUri:    uri + "images/docs.webp",
+	Published:   date(2026, 5, 9),
 }

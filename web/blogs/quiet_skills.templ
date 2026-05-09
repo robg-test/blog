@@ -1,0 +1,194 @@
+package blogs
+
+import (
+	"github.com/robgtest/blog/internal/static"
+	"github.com/robgtest/blog/web/components"
+	"github.com/robgtest/blog/web/pages"
+)
+
+templ metaQuietSkills() {
+	@components.MetaData(static.QuietSkillsData)
+}
+
+templ QuietSkillsBlog(theme string) {
+	@pages.BlogPage(theme, metaQuietSkills()) {
+		<section>
+			@components.BlogTimeCaption("5")
+			<h1>{ static.QuietSkillsData.Title }</h1>
+		</section>
+		<h2>Introduction</h2>
+		<p>
+			AI systems are making it easier than ever to get software into production. What once took months of
+			groundwork can now be stood up in days. But easier to build doesn&apos;t mean easier to run &mdash;
+			it just means more systems in production, faster, with teams who haven&apos;t always had the time
+			to develop the skills to manage them. That breeds a new set of challenges.
+		</p>
+		<p>
+			It&apos;s release day. It&apos;s 2pm and the client has just been on a webinar with hundreds of potential users.
+			The system has been in beta for months. This is judgement day &mdash; the day you find out how your system
+			is going to behave under real load, with real people, at the worst possible time to find out it doesn&apos;t.
+		</p>
+		<p>
+			These next few hours define whether your idea works. Not in a staging environment, not with a handful
+			of internal testers &mdash; in production, right now, with an audience watching.
+		</p>
+		<p>
+			Could you have gone more iterative? Could you have onboarded more users quietly first? Probably.
+			But that&apos;s not how marketing works in this sector. A big launch, a webinar, a moment &mdash; that&apos;s the play.
+			And now you have to bear the brunt of it.
+		</p>
+		<h2>The Skills</h2>
+		<p>
+			That moment &mdash; release day, production live, audience watching &mdash; is where these skills show up.
+			Not in planning, not in code review. Under pressure, in real time.
+		</p>
+		<h3>Teamwork</h3>
+		<p>
+			You have to know who you need and have them on hand at all times. Not everyone &mdash; the right people.
+			A room full of the wrong voices is worse than a room with too few.
+		</p>
+		<p>
+			You need three things: thinkers who can diagnose fast, a decision maker who can call it under pressure,
+			and the discipline to cut anyone who isn&apos;t contributing. In a high-stakes moment, unnecessary noise
+			costs you time you don&apos;t have.
+		</p>
+		<h3>The Shot Maker</h3>
+		<p>
+			The shot maker is the one with the final call. When options are on the table and the team is split,
+			it ends with them. Not by committee, not by consensus &mdash; by decision. Everyone else feeds into that
+			moment, but the shot maker is the one who calls it.
+		</p>
+		<p>
+			One might think the most technical person in the room is the best shot caller. I&apos;d flip that on its head.
+			You need a good amount of competence &mdash; that&apos;s the floor. But beyond a certain point, what matters
+			most is understanding the ramifications of the choices being made. The most common trait I look for
+			in a shot maker is someone I respect &mdash; not the most skilled person, but the most trusted one.
+		</p>
+		<p>
+			You need someone who can make a decision and stand behind it. And that&apos;s a human-to-human relation,
+			not a human-to-skill relation.
+		</p>
+		<p>
+			Critically, that person needs to be a figure of accountability. When things go wrong &mdash; and they
+			will &mdash; someone has to own it. Not deflect, not diffuse it across the team. Own it. That accountability
+			is what gives the rest of the team the confidence to act decisively rather than hedge.
+		</p>
+		<h3>The Investigators</h3>
+		<p>
+			In complex systems, things go wrong. Finding the cause is the hard part &mdash; not to discredit the fix,
+			but understanding what actually broke, and why, is where the real skill lies.
+		</p>
+		<p>
+			Production is a limited access environment. The tricky problems have a nasty habit of surfacing in the
+			areas that are sparsest in logs &mdash; the exact places you can&apos;t easily poke around in.
+		</p>
+		<p>
+			So you&apos;re sort of in the realm of guessing. Emulation can help, but you have to theorise what&apos;s wrong
+			first before you can start emulating anything. Wild stabs in the dark don&apos;t work. There has to be a theory.
+		</p>
+		<p>
+			A good investigator has a mental model of how the system operates &mdash; at varying degrees of detail.
+			They can zoom out to the architecture and zoom in to a single service call. That internal emulation
+			is what separates someone who can theorise from someone who&apos;s just reading logs and hoping.
+		</p>
+		<h3>The Fix Tiers</h3>
+		<p>
+			Once you know what broke, you need to know what kind of fix it needs. Not everything warrants the same
+			response, and confusing the tiers is how teams burn out or face the same incident twice.
+		</p>
+		<p>
+			<strong>The short term fix</strong> is about stopping the bleeding. It can be dirty &mdash; a rollback,
+			a feature flag switched off, a job killed. It doesn&apos;t need to be elegant, it needs to work right now.
+		</p>
+		<p>
+			<strong>The medium term fix</strong> is the proper one. Clean up the hotfix, address the root cause,
+			get it reviewed. This is the fix that gets delivered in days, not minutes.
+		</p>
+		<p>
+			<strong>The future fix</strong> is what the incident revealed about the system. The thing that was always
+			going to bite you. It goes in the backlog with enough context that someone can act on it months later
+			without having to reconstruct what happened.
+		</p>
+		<p>
+			A concrete example: a Lambda was failing because an auth token expired after one hour. The token was
+			being set up once at cold start, and the Lambdas were consistently staying alive long enough to hit
+			that expiry &mdash; so every hour, things broke. The short term fix was adjusting the memory to
+			force restarts before the hour was up, recycling the runtime before the token could expire. Dirty,
+			but it stopped the failures. The medium term fix was making the Lambda refresh the token itself in
+			code. The future fix was building a proper centralised token refresh mechanism so no Lambda ever
+			had to solve that problem on its own.
+		</p>
+		<p>
+			The dirty fix feels wrong. And in isolation it is &mdash; you wouldn&apos;t design a system that way.
+			But systems that survive in the real world carry a few of these scars. The dirty fix is what keeps
+			the lights on while the proper work gets done. Dismissing it as unprofessional misses the point;
+			the teams that refuse to do it are the ones who stay down longest. The key is not letting the short
+			term become the long term.
+		</p>
+		<p>
+			This is the spirit of <em>Worse is Better</em> &mdash; the idea that a slightly
+			worse solution, simpler to implement and good enough to work, will outlast a perfect one that takes
+			too long to arrive. The New Jersey style of development embraces this: get it running, get it stable,
+			then improve it. It&apos;s not an excuse for low standards &mdash; it&apos;s a recognition that software
+			which survives is software that ships. The systems still running ten years from now aren&apos;t the
+			ones that waited to be perfect.
+		</p>
+		<h3>Look After Yourself</h3>
+		<p>
+			Under stress, the part of the brain that helps most &mdash; the prefrontal cortex &mdash; is the first to suffer.
+			The very thing you need to theorise, model, and make good calls starts degrading exactly when the
+			pressure is highest. That&apos;s worth taking seriously.
+		</p>
+		<p>
+			Sleep, exercise, and keeping chronic stress in check aren&apos;t soft suggestions &mdash; they&apos;re how you protect
+			your ability to think clearly when it counts. A tired investigator is a bad investigator.
+		</p>
+		<p>
+			Early on in my career, this is something I should have given more focus.
+			It would have made a difference.
+		</p>
+		<p>
+			An unfortunate reality of the industry is that production doesn&apos;t respect working hours. If you find
+			yourself doing nighttime support, a few things help:
+		</p>
+		<ul>
+			<li>
+				<strong>Keep yourself fed &mdash; snack focused.</strong> It&apos;s not a great diet, but you need the motivation.
+				Easy to forget you haven&apos;t eaten, and it makes a real difference to how you think.
+			</li>
+			<li>
+				<strong><em>Try</em> to get some sleep at some point.</strong> Lying down and letting your brain avoid stimulation
+				still gives it some recovery. Full sleep is ideal but rest is better than nothing.
+			</li>
+			<li>
+				<strong>Take advantage of the atmosphere.</strong> Night incidents tend to be calmer &mdash; fewer people,
+				more focus, and a genuine sense of gratitude from those involved. That&apos;s rare in this industry. Lean into it.
+			</li>
+		</ul>
+		<p>
+			For practical tips on keeping your prefrontal cortex in good shape, this is a good starting point:
+			<a href="https://resiliencedynamic.com/resilient-thinking/you-need-to-protect-your-prefrontal-cortex/">You Need to Protect Your Prefrontal Cortex</a>.
+		</p>
+		<h2>Conclusion</h2>
+		<p>
+			Back to that 2pm release day. The webinar is done, the users are arriving, and something isn&apos;t right.
+			This is the moment that separates teams who have these skills from teams who don&apos;t.
+		</p>
+		<p>
+			Getting a system into production is the start, not the finish. The skills that keep it running are
+			different from the ones that built it, and AI tooling making delivery faster means these skills matter more, not less.
+		</p>
+		<p>
+			You need the right <strong>team</strong> &mdash; not the biggest one, the right one. A <strong>shot maker</strong>
+			who has the final call and owns the outcome. <strong>Investigators</strong> who can build a theory from
+			limited information and work the problem without flailing. A shared understanding of <strong>fix tiers</strong>
+			&mdash; the dirty fix that stops the bleeding, the proper fix that addresses the cause, and the future
+			fix that means it doesn&apos;t happen again.
+		</p>
+		<p>
+			And through all of it, <strong>look after yourself</strong>. The part of your brain you need most
+			degrades fastest under pressure. Sleep, eat, and remember that the calmer you are, the better your team performs.
+		</p>
+		<div class="divider"></div>
+	}
+}
