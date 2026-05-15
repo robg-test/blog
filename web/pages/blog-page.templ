@@ -1,6 +1,9 @@
 package pages
 
-import "github.com/robgtest/blog/web/components"
+import (
+	"github.com/robgtest/blog/internal/static"
+	"github.com/robgtest/blog/web/components"
+)
 
 templ BlogPage(theme string, meta templ.Component) {
 	<html data-theme={ theme }>
@@ -9,10 +12,9 @@ templ BlogPage(theme string, meta templ.Component) {
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			@meta
-			<link href="../../styles.css" rel="stylesheet"/>
-			<link rel="stylesheet" href="../../prism.css"/>
-			<!-- <link rel="stylesheet" href="https://unpkg.com/prismjs@1.29.0/themes/prism.css"/> -->
-			<script src="../../js/prism.js"></script>
+			<link href={ templ.URL("../../styles.css?v=" + static.StylesCSSVersion) } rel="stylesheet"/>
+			<link rel="stylesheet" href={ templ.URL("../../prism.css?v=" + static.PrismCSSVersion) }/>
+			<script src={ templ.URL("../../js/prism.js?v=" + static.PrismJSVersion) }></script>
 			<!-- Google tag (gtag.js) -->
 			<script async src="https://www.googletagmanager.com/gtag/js?id=G-P2WG5C34K2"></script>
 			<script>

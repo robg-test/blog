@@ -155,14 +155,17 @@ func serveRSS(w http.ResponseWriter, r *http.Request) {
 }
 
 func serveCSS(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
 	http.ServeFile(w, r, "./web/static/css/output.css")
 }
 
 func servePrismCSS(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
 	http.ServeFile(w, r, "./web/static/css/prism.css")
 }
 
 func servePrismJS(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
 	http.ServeFile(w, r, "./web/static/js/prism.js")
 }
 
