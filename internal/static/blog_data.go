@@ -15,7 +15,7 @@ var uri = func() string {
 	if os.Getenv("ENV") == "production" {
 		return "https://blog.bob-productions.dev/"
 	}
-	return "http://localhost:8080/"
+	return "http://localhost:7000/"
 }()
 
 var ControlAndChoiceData = models.BlogMeta{

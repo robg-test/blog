@@ -4,31 +4,20 @@ import "github.com/robgtest/blog/internal/static"
 
 templ BlogLibrary() {
 	<div class="w-3/4 mx-auto grid justify-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-		@Card(static.IntroData.Title,
-			static.IntroData.Description,
-			"/images/intro/bob.webp",
-			static.IntroData.Url,
-			"2",
-			"Other")
-		@Card(static.AWSServerlessData.Title,
-			static.AWSServerlessData.Description,
-			"/images/lambda-serverless/AWS-Card.webp",
-			static.AWSServerlessData.Url,
-			"10",
+		<div class="md:col-span-2 lg:col-span-3 xl:col-span-3 2xl:col-span-3">
+			@FeaturedCard(static.QuietSkillsData.Title,
+				static.QuietSkillsData.Description,
+				"/images/docs.webp",
+				static.QuietSkillsData.Url,
+				"5",
+				"Opinion")
+		</div>
+		@Card(static.PerformanceWorkshop.Title,
+			static.PerformanceWorkshop.Description,
+			"/images/performance/Answer-U.webp",
+			static.PerformanceWorkshop.Url,
+			"30",
 			"Guide")
-		@Card(static.ControlAndChoiceData.Title,
-			static.ControlAndChoiceData.Description,
-			"/images/stoic/stoic1.webp",
-			static.ControlAndChoiceData.Url,
-			"1",
-			"Wellbeing")
-		@Card(static.IsCopilotADudData.Title,
-			static.IsCopilotADudData.Description,
-			"/images/copilot/copilot.webp",
-			static.IsCopilotADudData.Url,
-			"7",
-			"Opinion",
-		)
 		@Card(static.ToBeSteadyData.Title,
 			static.ToBeSteadyData.Description,
 			"/images/stoic/stoic2.webp",
@@ -36,17 +25,30 @@ templ BlogLibrary() {
 			"1",
 			"Wellbeing",
 		)
-		@Card(static.PerformanceWorkshop.Title,
-			static.PerformanceWorkshop.Description,
-			"/images/performance/Answer-U.webp",
-			static.PerformanceWorkshop.Url,
-			"30",
+		@Card(static.IsCopilotADudData.Title,
+			static.IsCopilotADudData.Description,
+			"/images/copilot/copilot.webp",
+			static.IsCopilotADudData.Url,
+			"7",
+			"Opinion",
+		)
+		@Card(static.ControlAndChoiceData.Title,
+			static.ControlAndChoiceData.Description,
+			"/images/stoic/stoic1.webp",
+			static.ControlAndChoiceData.Url,
+			"1",
+			"Wellbeing")
+		@Card(static.AWSServerlessData.Title,
+			static.AWSServerlessData.Description,
+			"/images/lambda-serverless/AWS-Card.webp",
+			static.AWSServerlessData.Url,
+			"10",
 			"Guide")
-		@Card(static.QuietSkillsData.Title,
-			static.QuietSkillsData.Description,
-			"/images/docs.webp",
-			static.QuietSkillsData.Url,
-			"5",
-			"Opinion")
+		@Card(static.IntroData.Title,
+			static.IntroData.Description,
+			"/images/intro/bob.webp",
+			static.IntroData.Url,
+			"2",
+			"Other")
 </div>
 }

@@ -50,7 +50,7 @@ func main() {
 			log.Printf("secure server failed: %s", err)
 		}
 	} else {
-		host := ":8080"
+		host := ":7000"
 		log.Println("Starting development server on", host)
 		err := http.ListenAndServe(host, internal.UserSessionManager.LoadAndSave(router))
 		if err != nil {

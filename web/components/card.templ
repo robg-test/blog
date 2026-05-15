@@ -1,7 +1,31 @@
 package components
 
+templ FeaturedCard(name string, description string, image string, id string, time string, badge string) {
+	<a href={ templ.URL(id) } class="card card-side bg-base-100 w-full h-70 shadow-xl overflow-hidden">
+		<div class="card-body">
+			<h2 class="card-title">{ name }</h2>
+			@BlogBadge(badge)
+			<div class="flex items-center gap-1 opacity-60">
+				<div class="flex items-center justify-center">
+					<svg class="text-[inherit] fill-current" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 32 32">
+						<path d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 15 8 L 15 17 L 22 17 L 22 15 L 17 15 L 17 8 Z"></path>
+					</svg>
+				</div>
+				<div>
+					<p>~{ time } minute(s)</p>
+				</div>
+			</div>
+			<p>{ description }</p>
+		</div>
+		<figure class="relative w-1/2 shrink-0">
+			<img src={ image } alt="Image" class="w-full h-full object-cover"/>
+			<div class="absolute inset-0 bg-neutral opacity-75"></div>
+		</figure>
+	</a>
+}
+
 templ Card(name string, description string, image string, id string, time string, badge string) {
-	<a href={ templ.URL(id) } class="card bg-base-100 image-full w-60 h-70 shadow-xl">
+	<a href={ templ.URL(id) } class="card bg-base-100 image-full w-full h-70 shadow-xl">
 		<figure>
 			<img
 				src={ image }
