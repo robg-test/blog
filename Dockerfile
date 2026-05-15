@@ -18,8 +18,7 @@ RUN npm install
 COPY . .
 
 # Generate templ files and build CSS
-RUN go get -tool github.com/a-h/templ/cmd/templ@latest && \
-    go tool templ generate && \
+RUN go tool templ generate && \
     npx @tailwindcss/cli -i ./web/static/css/input.css -o ./web/static/css/output.css && \
     CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o blog
 
