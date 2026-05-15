@@ -1,10 +1,13 @@
 package components
 
-templ FeaturedCard(name string, description string, image string, id string, time string, badge string) {
+templ FeaturedCard(name string, description string, image string, id string, time string, badge string, date string) {
 	<a href={ templ.URL(id) } class="card card-side bg-base-100 w-full h-70 shadow-xl overflow-hidden">
 		<div class="card-body">
 			<h2 class="card-title">{ name }</h2>
-			@BlogBadge(badge)
+			<div class="flex flex-col gap-2">
+				@BlogBadge(badge)
+				<div class="badge badge-ghost">{ date }</div>
+			</div>
 			<div class="flex items-center gap-1 opacity-60">
 				<div class="flex items-center justify-center">
 					<svg class="text-[inherit] fill-current" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 32 32">
@@ -24,7 +27,7 @@ templ FeaturedCard(name string, description string, image string, id string, tim
 	</a>
 }
 
-templ Card(name string, description string, image string, id string, time string, badge string) {
+templ Card(name string, description string, image string, id string, time string, badge string, date string) {
 	<a href={ templ.URL(id) } class="card bg-base-100 image-full w-full h-70 shadow-xl">
 		<figure>
 			<img
@@ -35,7 +38,10 @@ templ Card(name string, description string, image string, id string, time string
 		</figure>
 		<div class="card-body">
 			<h2 class="card-title">{ name }</h2>
-			@BlogBadge(badge)
+			<div class="flex flex-col gap-2">
+				@BlogBadge(badge)
+				<div class="badge badge-ghost">{ date }</div>
+			</div>
 			<div class="flex items-center gap-1 opacity-60">
 				<div class="flex items-center justify-center">
 					<svg class="text-[inherit] fill-current" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 32 32">

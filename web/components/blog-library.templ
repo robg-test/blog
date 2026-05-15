@@ -10,20 +10,23 @@ templ BlogLibrary() {
 				"/images/docs.webp",
 				static.QuietSkillsData.Url,
 				"5",
-				"Opinion")
+				"Opinion",
+				static.QuietSkillsData.Published.Format("Jan 2, 2006"))
 		</div>
 		@Card(static.PerformanceWorkshop.Title,
 			static.PerformanceWorkshop.Description,
 			"/images/performance/Answer-U.webp",
 			static.PerformanceWorkshop.Url,
 			"30",
-			"Guide")
+			"Guide",
+			static.PerformanceWorkshop.Published.Format("Jan 2, 2006"))
 		@Card(static.ToBeSteadyData.Title,
 			static.ToBeSteadyData.Description,
 			"/images/stoic/stoic2.webp",
 			static.ToBeSteadyData.Url,
 			"1",
 			"Wellbeing",
+			static.ToBeSteadyData.Published.Format("Jan 2, 2006"),
 		)
 		@Card(static.IsCopilotADudData.Title,
 			static.IsCopilotADudData.Description,
@@ -31,24 +34,28 @@ templ BlogLibrary() {
 			static.IsCopilotADudData.Url,
 			"7",
 			"Opinion",
+			static.IsCopilotADudData.Published.Format("Jan 2, 2006"),
 		)
 		@Card(static.ControlAndChoiceData.Title,
 			static.ControlAndChoiceData.Description,
 			"/images/stoic/stoic1.webp",
 			static.ControlAndChoiceData.Url,
 			"1",
-			"Wellbeing")
+			"Wellbeing",
+			static.ControlAndChoiceData.Published.Format("Jan 2, 2006"))
 		@Card(static.AWSServerlessData.Title,
 			static.AWSServerlessData.Description,
 			"/images/lambda-serverless/AWS-Card.webp",
 			static.AWSServerlessData.Url,
 			"10",
-			"Guide")
+			"Guide",
+			static.AWSServerlessData.Published.Format("Jan 2, 2006"))
 		@Card(static.IntroData.Title,
 			static.IntroData.Description,
 			"/images/intro/bob.webp",
 			static.IntroData.Url,
 			"2",
-			"Other")
+			"Other",
+			static.IntroData.Published.Format("Jan 2, 2006"))
 </div>
 }
