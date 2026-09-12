@@ -22,7 +22,7 @@ var ControlAndChoiceData = models.BlogMeta{
 	Title:       "Weekly Stoic: Control & Choice",
 	Url:         uri + "blog/control-and-choice",
 	Description: "Quick testing wellbeing tidbits",
-	ImageUri:    uri + "images/stoic1.webp",
+	ImageUri:    uri + "images/control-and-choice/control-and-choice.webp",
 	Published:   date(2025, 1, 1),
 }
 
@@ -30,7 +30,7 @@ var ToBeSteadyData = models.BlogMeta{
 	Title:       "Weekly Stoic: To Be Steady & Unsteady",
 	Url:         uri + "blog/to-be-steady",
 	Description: "Quick testing wellbeing tidbits",
-	ImageUri:    uri + "images/stoic2.webp",
+	ImageUri:    uri + "images/to-be-steady/to-be-steady.webp",
 	Published:   date(2025, 1, 10),
 }
 
@@ -38,7 +38,7 @@ var AWSServerlessData = models.BlogMeta{
 	Description: "Achieving performant cloud architecture: AWS Lambdas",
 	Url:         uri + "blog/serverless",
 	Title:       "Software Performance Guide: AWS Lambdas",
-	ImageUri:    uri + "images/lambda-serverless/AWS-Meta.webp",
+	ImageUri:    uri + "images/serverless/aws-meta.webp",
 	Published:   date(2025, 1, 1),
 }
 
@@ -46,7 +46,7 @@ var IntroData = models.BlogMeta{
 	Description: "Who is the mysterious sweaty fox",
 	Url:         uri + "blog/intro",
 	Title:       "An Introduction To Bob Productions",
-	ImageUri:    uri + "images/Sweat.webp",
+	ImageUri:    uri + "images/intro/bob.webp",
 	Published:   date(2025, 1, 1),
 }
 
@@ -54,7 +54,7 @@ var IsCopilotADudData = models.BlogMeta{
 	Description: "I suggest you stop relying on suggestions",
 	Url:         uri + "blog/ai-autocomplete",
 	Title:       "The Code Suggestion Crisis",
-	ImageUri:    uri + "images/copilot/skullpilot.webp",
+	ImageUri:    uri + "images/ai-autocomplete/skullpilot.webp",
 	Published:   date(2025, 1, 10),
 }
 
@@ -62,7 +62,7 @@ var PerformanceWorkshop = models.BlogMeta{
 	Description: "Performance Workshop AD Quarterly",
 	Url:         uri + "blog/perf-workshop",
 	Title:       "AD Performance Workshop",
-	ImageUri:    uri + "images/performance/performance.webp",
+	ImageUri:    uri + "images/perf-workshop/answer-u.webp",
 	Published:   date(2025, 4, 10),
 }
 
@@ -70,7 +70,7 @@ var GrugAutomationData = models.BlogMeta{
 	Description: "Why test automation projects fail, explained with simple Grug wisdom and practical engineering lessons.",
 	Url:         uri + "blog/grug-automation",
 	Title:       "Grug Guide to Why Test Automation Fails",
-	ImageUri:    uri + "images/testing/grug-automation.webp",
+	ImageUri:    uri + "images/grug-automation/grug-automation.webp",
 	Published:   date(2026, 5, 4),
 }
 
@@ -78,6 +78,6 @@ var QuietSkillsData = models.BlogMeta{
 	Description: "Getting production systems started and running.",
 	Url:         uri + "blog/quiet-skills",
 	Title:       "Skills for New Production Systems",
-	ImageUri:    uri + "images/docs.webp",
+	ImageUri:    uri + "images/quiet-skills/docs.webp",
 	Published:   date(2026, 5, 9),
 }

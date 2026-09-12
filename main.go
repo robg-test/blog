@@ -176,6 +176,9 @@ func serveImage(w http.ResponseWriter, r *http.Request, loadableImages []string)
 	if contains(loadableImages, "web/static/images/"+path) {
 		log.Println("Serving image:", path)
 		http.ServeFile(w, r, fmt.Sprintf("./web/static/images/%s", path))
+	} else {
+		log.Println("Image not found:", path)
+		http.NotFound(w, r)
 	}
 }
 
