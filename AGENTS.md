@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Personal blog built with **Go 1.24 + Chi router v5**, server-rendered HTML via **templ** components, styled with **Tailwind CSS v4 + DaisyUI v5**. Deployed via Docker to Digital Ocean, CI/CD on GitHub Actions.
+Personal blog built with **Go 1.24 + Chi router v5**, server-rendered HTML via **templ** components, styled with **Tailwind CSS v4 + DaisyUI v5**. Not currently deployed anywhere; GitHub Actions runs build-only checks.
 
 ## Tech Stack
 
@@ -15,8 +15,8 @@ Personal blog built with **Go 1.24 + Chi router v5**, server-rendered HTML via *
 | Database | Turso (libsql, SQLite-compatible) |
 | Sessions | Redis-backed SCS v2 |
 | Interactivity | htmx 1.9.11 (from CDN) |
-| Hosting | Digital Ocean VPS, HTTPS on :443 |
-| CI/CD | GitHub Actions → Docker → GHCR → SSH deploy |
+| Hosting | None currently — the site is offline |
+| CI | GitHub Actions → WebP gate + Docker build (no publish, no deploy) |
 
 ## Commands
 
@@ -147,23 +147,24 @@ All routes in `main.go` using Chi v5:
 ## Gotchas & Important Notes
 
 - **Missing route bug**: `static.GrugAutomationData.Url` points to `/blog/grug-automation` but there is NO matching `case "grug-automation":` in `setupBlogHandler()` in `main.go`. The component `blogs.GrugAutomationBlog` exists but is unreachable. Fix this if adding the route.
-- **No tests** exist in the codebase. CI builds and deploys but does not run tests.
+- **No tests** exist in the codebase. CI builds the image but does not run tests.
 - **Generated files are gitignored**: `*_templ.go` (from templ), `output.css` (from Tailwind), compiled binaries.
-- **Images must be WebP**. The CI pipeline (`go.yml`) scans for `.png`, `.jpg`, `.jpeg` and fails if any found.
+- **Images must be WebP**. The CI pipeline (`checks.yml`) scans for `.png`, `.jpg`, `.jpeg` and fails if any found.
 - **Theme defaults to "retro"** if session is empty. The toggle swaps between "retro" and "synthwave".
 - **Database** (Turso) is initialized at startup but currently NOT queried in any request handler. It's wired up and ready for use (e.g., view counts, comments).
 - **Stoicism posts** use descriptive filenames (`control_and_choice.templ`, `to_be_steady.templ`) and live in a separate `stoicism` package.
 - **Commit style**: Imperative mood, descriptive but varied in formatting. No squash merges. No conventional commit standard.
 
-## CI/CD Pipeline
+## CI Pipeline
 
-Push to `main`:
+`.github/workflows/checks.yml`, on every push and pull request:
 1. Verify all images are WebP
 2. Docker build (multi-stage: Go 1.24 builder + Node 20 for Tailwind → Alpine runtime)
-3. Push to `ghcr.io`
-4. SCP `docker-compose.yaml` to VPS
-5. SSH: pull new image, compose down/up, health check `curl -f -k https://localhost:443`
-6. Prune old images
+
+That is the whole pipeline. It uses no repository secrets, publishes no image,
+and deploys nowhere — the VPS this blog ran on was decommissioned and the deploy
+workflow was removed. The Docker build is kept so the `Dockerfile` stays
+verified for a future revival.
 
 ## Build Pipeline (Docker)
 

@@ -1,0 +1,28 @@
+# Build checks for the blog.
+# The site is not currently deployed anywhere; this workflow only verifies
+# that images are WebP and that the container image still builds.
+
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Verify images are WebP format
+        run: |
+          UNOPT=$(find web/static/images -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) 2>/dev/null || true)
+          if [ -n "$UNOPT" ]; then
+            echo "ERROR: Non-WebP images found:"; echo "$UNOPT"; exit 1
+          fi
+
+      - name: Build Docker image
+        run: docker build -t blog:latest .

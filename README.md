@@ -9,7 +9,7 @@ A personal blog built with Go, templ, and Tailwind CSS.
 - **Styling**: Tailwind CSS v4 + [DaisyUI](https://daisyui.com) components
 - **Database**: Turso (libsql/SQLite-compatible)
 - **Session Management**: Redis-backed SCS sessions
-- **Deployment**: Docker + GitHub Actions to Digital Ocean VPS
+- **Deployment**: None currently — the site is offline; CI builds the Docker image only
 
 ## Features
 
@@ -55,11 +55,18 @@ Server runs at `http://localhost:8080`
 
 ## Deployment
 
-Pushed to `main` branch triggers GitHub Actions:
-1. Builds Docker image
-2. Pushes to GitHub Container Registry
-3. Deploys to Digital Ocean VPS via SSH
-4. Health check verifies deployment
+The blog is not currently deployed. The VPS it ran on has been decommissioned
+and the deploy pipeline removed.
+
+GitHub Actions (`.github/workflows/checks.yml`) runs on every push and pull
+request and does two things only:
+
+1. Verifies all images are WebP
+2. Builds the Docker image
+
+Nothing is published to a registry and nothing is deployed anywhere. The
+`Dockerfile` is kept, and kept building, so the site can be revived on another
+host without archaeology.
 
 ## Blog Posts
 
